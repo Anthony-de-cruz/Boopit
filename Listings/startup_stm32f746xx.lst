@@ -956,15 +956,15 @@ ARM Macro Assembler    Page 15
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
 interwork --depend=.\objects\startup_stm32f746xx.d -o.\objects\startup_stm32f74
-6xx.o -IC:\Users\Anthony\Documents\GitHub\Bopit\RTE -IC:\Users\Anthony\Document
-s\GitHub\Bopit\RTE\Device\STM32F746NGHx -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\C
-MSIS\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\RTOS\RTX\INC -IC:\Keil
-_v5\ARM\PACK\Keil\MDK-Middleware\7.0.0\Board -IC:\Keil_v5\ARM\PACK\Keil\STM32F7
-xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\PACK\Ke
-il\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc --predefine="__RTX SETA
- 1" --predefine="__EVAL SETA 1" --predefine="__UVISION_VERSION SETA 518" --pred
-efine="_RTE_ SETA 1" --predefine="STM32F746xx SETA 1" --list=.\listings\startup
-_stm32f746xx.lst RTE\Device\STM32F746NGHx\startup_stm32f746xx.s
+6xx.o -I"C:\Users\Student\Documents\Embedded Systems\CW\Bopit\RTE" -I"C:\Users\
+Student\Documents\Embedded Systems\CW\Bopit\RTE\Device\STM32F746NGHx" -IC:\Keil
+_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\MDK-Middl
+eware\7.0.0\Board -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\CMSIS\
+Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Driv
+ers\STM32F7xx_HAL_Driver\Inc --predefine="__EVAL SETA 1" --predefine="__UVISION
+_VERSION SETA 518" --predefine="_RTE_ SETA 1" --predefine="STM32F746xx SETA 1" 
+--list=.\listings\startup_stm32f746xx.lst RTE\Device\STM32F746NGHx\startup_stm3
+2f746xx.s
 
 
 
@@ -2224,4 +2224,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-466 symbols in table
+465 symbols in table
