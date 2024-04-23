@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\Bopit.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\Bopit.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Apr 23 13:39:40 2024
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060061: Last Updated: Tue Apr 23 14:04:58 2024
 <BR><P>
 <H3>Maximum Stack Usage =         80 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -870,7 +870,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;photoresistorSensor
 </UL>
 
-<P><STRONG><a name="[b4]"></a>MX_ADC_Init</STRONG> (Thumb, 110 bytes, Stack size 24 bytes, sensortesting.o(i.MX_ADC_Init))
+<P><STRONG><a name="[b4]"></a>MX_ADC_Init</STRONG> (Thumb, 106 bytes, Stack size 24 bytes, sensortesting.o(i.MX_ADC_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = MX_ADC_Init &rArr; HAL_ADC_PollForConversion
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_ADC_Start
@@ -1022,7 +1022,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[9c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;OS_Tick_Handler
 </UL>
 
-<P><STRONG><a name="[bf]"></a>photoresistorSensor</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, sensortesting.o(i.photoresistorSensor))
+<P><STRONG><a name="[bf]"></a>photoresistorSensor</STRONG> (Thumb, 84 bytes, Stack size 8 bytes, sensortesting.o(i.photoresistorSensor))
 <BR><BR>[Stack]<UL><LI>Max Depth = 80<LI>Call Chain = photoresistorSensor &rArr; HAL_Init &rArr; HAL_InitTick &rArr; HAL_NVIC_SetPriority &rArr; NVIC_SetPriority
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_On

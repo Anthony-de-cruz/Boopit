@@ -52,13 +52,8 @@ void touchSensor(void){
 
 void photoresistorSensor(void){
     GPIO_InitTypeDef gpio; 
-    unsigned int value;
-    uint16_t adc_read;
 
-
- 
-   	  LED_Initialize(); 
-	
+   	LED_Initialize(); 	
 	__HAL_RCC_GPIOC_CLK_ENABLE();
     MX_GPIO_Init();
 	MX_ADC_Init();
@@ -68,7 +63,7 @@ void photoresistorSensor(void){
         
     while(1){
    
-		if(HAL_ADC_GetValue(&hadc) > 700){
+		if(HAL_ADC_GetValue(&hadc)  * 10> 550){
             LED_On(0U);
         }
         else{
@@ -130,7 +125,7 @@ void MX_ADC_Init(void)
 	of conversion) */		
 	hadc.Instance = ADC3; //# Select the ADC (ADC1, ADC2, ADC3)
 	hadc.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
-	hadc.Init.Resolution = ADC_RESOLUTION_10B;
+	hadc.Init.Resolution = ADC_RESOLUTION_12B;
 	hadc.Init.DataAlign = ADC_DATAALIGN_RIGHT;
 	hadc.Init.NbrOfConversion = 1;
     hadc.Init.ScanConvMode = ENABLE;
