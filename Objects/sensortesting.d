@@ -21,8 +21,13 @@
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_dma_ex.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_cortex.h
+.\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc.h
+.\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_adc_ex.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_flash_ex.h
+.\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_sdram.h
+.\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_ll_fmc.h
+.\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_ltdc.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driver\Inc\stm32f7xx_hal_pwr_ex.h
 .\objects\sensortesting.o: C:\Keil_v5\ARM\PACK\Keil\MDK-Middleware\7.0.0\Board\Board_LED.h

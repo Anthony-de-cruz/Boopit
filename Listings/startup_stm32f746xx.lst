@@ -958,13 +958,16 @@ Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M7.fp.sp --apcs=
 interwork --depend=.\objects\startup_stm32f746xx.d -o.\objects\startup_stm32f74
 6xx.o -I"C:\Users\Student\Documents\Embedded Systems\CW\Bopit\RTE" -I"C:\Users\
 Student\Documents\Embedded Systems\CW\Bopit\RTE\Device\STM32F746NGHx" -IC:\Keil
-_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\Keil\MDK-Middl
-eware\7.0.0\Board -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\CMSIS\
-Device\ST\STM32F7xx\Include -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Driv
-ers\STM32F7xx_HAL_Driver\Inc --predefine="__EVAL SETA 1" --predefine="__UVISION
-_VERSION SETA 518" --predefine="_RTE_ SETA 1" --predefine="STM32F746xx SETA 1" 
---list=.\listings\startup_stm32f746xx.lst RTE\Device\STM32F746NGHx\startup_stm3
-2f746xx.s
+_v5\ARM\PACK\ARM\CMSIS\4.5.0\CMSIS\Include -IC:\Keil_v5\ARM\PACK\ARM\CMSIS\4.5.
+0\CMSIS\RTOS\RTX\INC -IC:\Keil_v5\ARM\PACK\Keil\MDK-Middleware\7.0.0\Board -IC:
+\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\BSP\STM32746G-Discovery -IC:
+\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\CMSIS\Device\ST\STM32F7xx\In
+clude -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\Drivers\STM32F7xx_HAL_Driv
+er\Inc -IC:\Keil_v5\ARM\PACK\Keil\STM32F7xx_DFP\2.1.0\MDK\Boards\ST\STM32F746G_
+Discovery\Common --predefine="__RTX SETA 1" --predefine="__EVAL SETA 1" --prede
+fine="__UVISION_VERSION SETA 518" --predefine="_RTE_ SETA 1" --predefine="STM32
+F746xx SETA 1" --list=.\listings\startup_stm32f746xx.lst RTE\Device\STM32F746NG
+Hx\startup_stm32f746xx.s
 
 
 
@@ -2224,4 +2227,4 @@ Symbol: __use_two_region_memory
       None
 Comment: __use_two_region_memory unused
 3 symbols
-465 symbols in table
+466 symbols in table
