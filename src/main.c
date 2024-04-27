@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "stm32f7xx_hal.h"
 
 #include "GLCD_Config.h"
 #include "Board_GLCD.h"
 #include "Board_Touch.h"
+
+#include "display.h"
+
 #define wait_delay HAL_Delay
+
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
-
 
 #ifdef __RTX
 extern uint32_t os_time;
@@ -50,4 +54,95 @@ void SystemClock_Config(void) {
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
 	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 	HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
+}
+
+int main(void){
+    bool running = 1;
+    int tick = 0;
+    int presses = 0;
+    bool playing = 0;
+    int score = 0;
+    char *title = "BOOPIT!";
+    int title_size = strlen(title) * 24;
+    
+    Button play_button = {
+            (int)(480 * 0.25) - (100 / 2),
+            100,
+            100,
+            50,
+            "Play",
+            &GLCD_Font_16x24,
+            0
+        };
+    Button stop_button = {
+            (int)(480 * 0.75) - (100 / 2),
+            100,
+            100,
+            50,
+            "Stop",
+            &GLCD_Font_16x24,
+            0
+        };
+    Button increment_score_button = {
+            (int)(480 / 2) - (250 / 2),
+            175,
+            250,
+            50,
+            "Increment Score",
+            &GLCD_Font_16x24,
+            0
+        };
+  
+    TOUCH_STATE tsc_state;
+    
+    HAL_Init(); //Init Hardware Abstraction Layer
+    SystemClock_Config(); //Config Clocks
+    Touch_Initialize(); // Init Touchscreen
+    GLCD_Initialize(); //Init GLCD
+    
+    GLCD_ClearScreen();
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
+    GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
+    
+    // Main Loop
+    while(running){
+        //GLCD_ClearScreen();
+        
+        // Tick counter
+        tick++;
+        sprintf(debug_buffers[5], "%i", tick);
+        
+        // Handle Touch Screen Input
+        Touch_GetState(&tsc_state);
+        if (tsc_state.pressed) {
+            tsc_state.pressed = 0;
+            presses++;
+            sprintf(debug_buffers[0], "Touch @ X:%i,Y:%i -> Presses: %i    ",
+                tsc_state.x, tsc_state.y, presses);
+            
+            if (check_button_press(&play_button, &tsc_state)) {
+                playing = 1;
+            } else if (check_button_press(&stop_button, &tsc_state)) {
+                playing = 0;
+            } else if (check_button_press(&increment_score_button, &tsc_state) && playing) {
+                score++;
+            } 
+            
+            sprintf(debug_buffers[1], "Playing: %i ", playing);
+            sprintf(debug_buffers[2], "Score: %i ", score);
+        }
+        
+        // Draw UI
+        GLCD_SetFont(&GLCD_Font_16x24);
+        
+        GLCD_DrawString((int)(480 / 2) - (title_size / 2), 50, "BOOPIT!");
+        
+        draw_button(&play_button);
+        draw_button(&stop_button);
+        draw_button(&increment_score_button);
+       
+        debug_print();
+        wait_delay(100);
+    }
 }
