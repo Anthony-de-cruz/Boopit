@@ -8,8 +8,8 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/toby/Programming/C/EmbeddedCWGameCode/src/Game.c" "CMakeFiles/EmeddedCWGameCode.dir/src/Game.c.o" "gcc" "CMakeFiles/EmeddedCWGameCode.dir/src/Game.c.o.d"
-  "/home/toby/Programming/C/EmbeddedCWGameCode/src/main.c" "CMakeFiles/EmeddedCWGameCode.dir/src/main.c.o" "gcc" "CMakeFiles/EmeddedCWGameCode.dir/src/main.c.o.d"
+  "/home/Toby/Programming/C/EmbeddedCWGameCode/src/Game.c" "CMakeFiles/EmeddedCWGameCode.dir/src/Game.c.o" "gcc" "CMakeFiles/EmeddedCWGameCode.dir/src/Game.c.o.d"
+  "/home/Toby/Programming/C/EmbeddedCWGameCode/src/main.c" "CMakeFiles/EmeddedCWGameCode.dir/src/main.c.o" "gcc" "CMakeFiles/EmeddedCWGameCode.dir/src/main.c.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

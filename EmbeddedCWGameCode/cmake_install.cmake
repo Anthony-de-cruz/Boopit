@@ -1,4 +1,4 @@
-# Install script for directory: /home/toby/Programming/C/EmbeddedCWGameCode
+# Install script for directory: /home/Toby/Programming/C/EmbeddedCWGameCode
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/toby/Programming/C/EmbeddedCWGameCode/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/Toby/Programming/C/EmbeddedCWGameCode/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
