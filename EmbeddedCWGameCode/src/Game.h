@@ -3,12 +3,11 @@
 #define EMBEDDEDCWGAMECODE_GAME_H
 
 void playGame();
-void endGame(int score);
-void *timer(void *args);
-void *touchSensor(void *args); // works with button too
-void *buttonSensor(void *args);
-void *photoresistorSensor(void *args);
-void *microphoneSensor(void *args);
+void endGame();
+void touchSensor(); // works with button too
+void buttonSensor();
+void photoresistorSensor();
+void microphoneSensor();
 void MX_ADC_Init(void);
 void MX_GPIO_Init(void);
 int main(void);
