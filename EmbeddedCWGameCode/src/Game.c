@@ -12,16 +12,17 @@ int passedTask, timedOut;
 void playGame() {
 
     pthread_t taskThread, timerThread;
-    int score, r;
+    int score, lives, r;
     score = 0;
+    lives = 3;
 
-    printf("startint");
+    printf("startint\n");
     r = rand() % 4;
 
     while (1) {
         passedTask = 0;
         timedOut = 0;
-        printf("swtichting");
+        printf("swtichting\n");
 
         switch (r) {
         case (0):
@@ -39,17 +40,23 @@ void playGame() {
             break;
         }
         pthread_create(&timerThread, NULL, timer, NULL);
-        printf("switched");
+        printf("switched\n");
 
         while (1) {
             if (passedTask > 0) {
-                printf("touch");
+                printf("touch\n");
                 pthread_cancel(timerThread);
+                score++;
                 break;
             }
             if (timedOut > 0) {
                 pthread_cancel(taskThread);
-                printf("time");
+                lives--;
+                if (lives == 0) {
+                    endGame(score);
+                    exit(1);
+                }
+                printf("time\n");
                 break;
             }
         }
@@ -68,19 +75,35 @@ void *touchSensor(void *args) {
 }
 
 void *buttonSensor(void *args) {
-    sleep(1);
+    int answer = 0;
+    while (answer != 4) {
+
+        printf("Enter");
+        scanf("%d", &answer);
+    }
+
     passedTask = 1;
     return NULL;
 };
 void *photoresistorSensor(void *args) {
+    int answer = 0;
+    while (answer != 4) {
 
-    sleep(1);
+        printf("Enter");
+        scanf("%d", &answer);
+    }
+
     passedTask = 1;
     return NULL;
 };
 void *microphoneSensor(void *args) {
+    int answer = 0;
+    while (answer != 4) {
 
-    sleep(1);
+        printf("Enter");
+        scanf("%d", &answer);
+    }
+
     passedTask = 1;
     return NULL;
 };
@@ -93,8 +116,9 @@ void *timer(void *args) {
     return NULL;
 }
 
+void endGame(int score) { printf("%d\n", score); }
+
 int main() {
-    printf("plauign");
     playGame();
     //
     return 0;

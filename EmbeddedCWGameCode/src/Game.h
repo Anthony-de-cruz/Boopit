@@ -3,6 +3,7 @@
 #define EMBEDDEDCWGAMECODE_GAME_H
 
 void playGame();
+void endGame(int score);
 void *timer(void *args);
 void *touchSensor(void *args); // works with button too
 void *buttonSensor(void *args);
