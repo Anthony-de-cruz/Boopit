@@ -1,0 +1,3 @@
+/home/Toby/Programming/C/EmbeddedCWGameCode/CMakeFiles/EmeddedCWGameCode.dir
+/home/Toby/Programming/C/EmbeddedCWGameCode/CMakeFiles/edit_cache.dir
+/home/Toby/Programming/C/EmbeddedCWGameCode/CMakeFiles/rebuild_cache.dir
