@@ -2,11 +2,12 @@
 #include <stdbool.h>
 #define EMBEDDEDCWGAMECODE_GAME_H
 
-void playGame(void);
+void playGame();
+void *timer(void *args);
 void *touchSensor(void *args); // works with button too
-bool buttonSensor();
-bool photoresistorSensor();
-bool microphoneSensor();
+void *buttonSensor(void *args);
+void *photoresistorSensor(void *args);
+void *microphoneSensor(void *args);
 void MX_ADC_Init(void);
 void MX_GPIO_Init(void);
 int main(void);

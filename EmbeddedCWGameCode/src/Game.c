@@ -3,59 +3,99 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <threads.h>
 #include <time.h>
+#include <unistd.h>
 
-struct taskResult {
-    int result;
-};
+int passedTask, timedOut;
 
-void playGame(void) {
-    int score = 0;
-    clock_t startTime;
-    int r = rand();
+void playGame() {
 
-    srand(time(NULL)); // Initialization, should only be called once.
+    pthread_t taskThread, timerThread;
+    int score, r;
+    score = 0;
 
-    startTime = clock();
+    printf("startint");
+    r = rand() % 4;
 
-    void *args;
+    while (1) {
+        passedTask = 0;
+        timedOut = 0;
+        printf("swtichting");
 
-    struct taskResult *param = (struct taskResult *)args;
-    int input;
-    int res = param->result;
+        switch (r) {
+        case (0):
+            pthread_create(&taskThread, NULL, touchSensor, NULL);
+            break;
+        case (1):
+            pthread_create(&taskThread, NULL, buttonSensor, NULL);
+            break;
+        case (2):
+            pthread_create(&taskThread, NULL, photoresistorSensor, NULL);
+            break;
+        case (3):
 
-    printf("%d\n", res);
-    pthread_t taskThread;
-    pthread_create(&taskThread, NULL, touchSensor, NULL);
-    pthread_join(taskThread, NULL);
+            pthread_create(&taskThread, NULL, microphoneSensor, NULL);
+            break;
+        }
+        pthread_create(&timerThread, NULL, timer, NULL);
+        printf("switched");
 
-    printf("%d\n", res);
+        while (1) {
+            if (passedTask > 0) {
+                printf("touch");
+                pthread_cancel(timerThread);
+                break;
+            }
+            if (timedOut > 0) {
+                pthread_cancel(taskThread);
+                printf("time");
+                break;
+            }
+        }
+    }
 }
 
 void *touchSensor(void *args) {
-    struct taskResult *param = (struct taskResult *)args;
-    int input;
-    int res = param->result;
-    printf("enter: ");
-    scanf("%d", &input);
-    if (input == 4) {
-        res = 1;
+    int answer = 0;
+    while (answer != 4) {
+
+        printf("Enter");
+        scanf("%d", &answer);
     }
-    res = 0;
+    passedTask = 1;
     return NULL;
 }
 
-bool buttonSensor();
-bool photoresistorSensor();
-bool microphoneSensor();
+void *buttonSensor(void *args) {
+    sleep(1);
+    passedTask = 1;
+    return NULL;
+};
+void *photoresistorSensor(void *args) {
+
+    sleep(1);
+    passedTask = 1;
+    return NULL;
+};
+void *microphoneSensor(void *args) {
+
+    sleep(1);
+    passedTask = 1;
+    return NULL;
+};
 void MX_ADC_Init(void);
 void MX_GPIO_Init(void);
 
-int main() {
-    struct taskResult *result = malloc(sizeof(struct taskResult));
+void *timer(void *args) {
+    sleep(3);
+    timedOut = 1;
+    return NULL;
+}
 
-    result->result = 0;
-    // playGame();
+int main() {
+    printf("plauign");
+    playGame();
     //
     return 0;
 }
