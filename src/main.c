@@ -59,7 +59,6 @@ void SystemClock_Config(void) {
 }
 
 int main(void){
-    int r = 0;
     bool running = 1;
     int tick = 0;
     int presses = 0;
@@ -143,8 +142,6 @@ int main(void){
        
         debug_print();
         wait_delay(100);
-        if (r==0) {
-            touch_sensor();
-        }
+        play_game();
     }
 }

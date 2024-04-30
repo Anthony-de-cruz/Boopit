@@ -28,3 +28,16 @@ void draw_button(Button *button);
 bool check_button_press(Button *button, TOUCH_STATE *tsc_state);
 
 #endif /* __DISPLAY */
+
+
+/*
+    MainMenu();
+        play button exits the function
+    GameScreen(string task, int time);
+        put these things on screen + lives + score
+    EndScreen();
+        display whatever you want
+        restart/Title screen button?
+    
+
+*/
