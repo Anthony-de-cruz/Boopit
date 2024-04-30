@@ -10,6 +10,8 @@
 
 #include "display.h"
 
+
+
 #define wait_delay HAL_Delay
 
 extern GLCD_FONT GLCD_Font_6x8;
@@ -63,7 +65,7 @@ int main(void){
     bool playing = 0;
     int score = 0;
     char *title = "BOOPIT!";
-    int title_size = strlen(title) * 24;
+    int title_size = strlen(title) * 16;
     
     Button play_button = {
             (int)(480 * 0.25) - (100 / 2),
@@ -111,16 +113,12 @@ int main(void){
         
         // Tick counter
         tick++;
-        sprintf(debug_buffers[5], "%i", tick);
+        sprintf(debug_buffers[5], "Tick: %i", tick);
         
         // Handle Touch Screen Input
         Touch_GetState(&tsc_state);
         if (tsc_state.pressed) {
-            tsc_state.pressed = 0;
             presses++;
-            sprintf(debug_buffers[0], "Touch @ X:%i,Y:%i -> Presses: %i    ",
-                tsc_state.x, tsc_state.y, presses);
-            
             if (check_button_press(&play_button, &tsc_state)) {
                 playing = 1;
             } else if (check_button_press(&stop_button, &tsc_state)) {
@@ -128,14 +126,14 @@ int main(void){
             } else if (check_button_press(&increment_score_button, &tsc_state) && playing) {
                 score++;
             } 
-            
-            sprintf(debug_buffers[1], "Playing: %i ", playing);
-            sprintf(debug_buffers[2], "Score: %i ", score);
         }
+        sprintf(debug_buffers[0], "Touch: %i @ X:%i,Y:%i -> Presses: %i    ",
+                tsc_state.pressed, tsc_state.x, tsc_state.y, presses);
+        sprintf(debug_buffers[1], "Playing: %i ", playing);
+        sprintf(debug_buffers[2], "Score: %i ", score);
         
         // Draw UI
         GLCD_SetFont(&GLCD_Font_16x24);
-        
         GLCD_DrawString((int)(480 / 2) - (title_size / 2), 50, "BOOPIT!");
         
         draw_button(&play_button);
