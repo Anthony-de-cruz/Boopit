@@ -10,6 +10,9 @@ void play_game(void);
 extern int score;
 extern int lives;
 
+void MX_ADC_Init(void);
+void MX_GPIO_Init(void);
+
 #endif /* __GAME */
 
 
