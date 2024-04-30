@@ -3,12 +3,12 @@
 #include <string.h>
 
 #include "stm32f7xx_hal.h"
-
 #include "GLCD_Config.h"
 #include "Board_GLCD.h"
 #include "Board_Touch.h"
 
 #include "display.h"
+#include "game.h"
 
 
 
@@ -59,6 +59,7 @@ void SystemClock_Config(void) {
 }
 
 int main(void){
+    int r = 0;
     bool running = 1;
     int tick = 0;
     int presses = 0;
@@ -142,5 +143,8 @@ int main(void){
        
         debug_print();
         wait_delay(100);
+        if (r==0) {
+            touch_sensor();
+        }
     }
 }
