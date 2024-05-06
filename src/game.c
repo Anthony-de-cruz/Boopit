@@ -1,4 +1,5 @@
 #include "game.h"
+#include "display.h"
 
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
@@ -8,6 +9,9 @@
 #include <time.h>
 
 #define wait_delay HAL_Delay
+
+extern GLCD_FONT GLCD_Font_6x8;
+extern GLCD_FONT GLCD_Font_16x24;
 
 int score = 0;
 int lives = 3;
@@ -98,6 +102,18 @@ void play_game(void){
     gpio.Pin = GPIO_PIN_6;
 	HAL_GPIO_Init(GPIOC, &gpio);
     
+    //display
+    SystemClock_Config(); //Config Clocks
+    Touch_Initialize(); // Init Touchscreen
+    GLCD_Initialize(); //Init GLCD
+    
+    GLCD_ClearScreen();
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
+    GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
+    
+    TOUCH_STATE tsc_state;
+    
     //Game settings
     //srand(time(NULL));
     //random = rand() % 3;
@@ -107,24 +123,24 @@ void play_game(void){
     
     
     //while(timeCurrent < timeLimit){
-        while(1){
-      
-    //find random 
-    if(random ==0) {
-    taskCompleted = touch_sensor();
-    }
-    else if(random ==1) {
-        taskCompleted = photo_sensor();
-    }
-    else if(random ==2) {
-        taskCompleted = button_sensor();
-    }
-    else if(random ==3) {
-        taskCompleted = Joystick_sensor();
-    }
+    while(1){
+        
+        //find random 
+        if(random ==0) {
+            taskCompleted = touch_sensor();
+        }
+        else if(random ==1) {
+            taskCompleted = photo_sensor();
+        }
+        else if(random ==2) {
+            taskCompleted = button_sensor();
+        }
+        else if(random ==3) {
+            taskCompleted = Joystick_sensor();
+        }
     
     
-    //check completed
+        //check completed
         if(taskCompleted){
             LED_On(0u);
             //wait_delay(1);
@@ -133,8 +149,11 @@ void play_game(void){
         else{
             LED_Off(0U);
         }
-        //wait_delay(10);
-        //timeCurrent += 10;
+        
+        
+        
+        wait_delay(10);
+        timeCurrent += 10;
     }
 }
 
@@ -258,3 +277,4 @@ void MX_GPIO_Init_JoyY(void){
     GPIO_InitStructJoyY.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOA, &GPIO_InitStructJoyY);// #select GPIO Group
 }
+
