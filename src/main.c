@@ -8,10 +8,12 @@
 #include "Board_Touch.h"
 
 #include "game.h"
-
+#include "display.h"
 
 
 int main(void){
+    
+    init_display();
     
     play_game();
     

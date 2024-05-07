@@ -88,8 +88,6 @@ void play_game(void){
     int startTime, timeCurrent, timeLimit;
     enum Task task = TOUCH;
     bool taskCompleted;
-
-    TOUCH_STATE tsc_state;
     
     //general	
     GPIO_InitTypeDef gpio;
@@ -112,24 +110,13 @@ void play_game(void){
     
     gpio.Pin = GPIO_PIN_6;
 	HAL_GPIO_Init(GPIOC, &gpio);
-    
-    //display
-    SystemClock_Config(); //Config Clocks
-    Touch_Initialize(); // Init Touchscreen
-    GLCD_Initialize(); //Init GLCD
-    
-    GLCD_ClearScreen();
-    GLCD_SetFont(&GLCD_Font_16x24);
-    GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
-    GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
-  
+
     //Game settings
     srand(HAL_GetTick());
     task = rand() % 4;
     timeLimit = 7000; // in ms
     
     startTime = HAL_GetTick();
-    
     
     //while(timeCurrent < timeLimit){
     while(1){
@@ -144,24 +131,24 @@ void play_game(void){
             case JOYSTICK:
                 taskCompleted = Joystick_sensor();
         }
-    
-        //check completed
-        if(taskCompleted){
-            LED_On(0u);
-            score++;
-            //wait_delay(1);
-            //exit(1);
-        }
-        else{
-            LED_Off(0U);
-            lives--;
-        }
-        
+
         wait_delay(10);
         timeCurrent = HAL_GetTick();
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
         
         draw_game_screen(timeCurrent, timeLimit, task);
+    }
+    
+    //check completed
+    if(taskCompleted){
+        LED_On(0u);
+        score++;
+        //wait_delay(1);
+        //exit(1);
+    }
+    else{
+        LED_Off(0U);
+        lives--;
     }
 }
 

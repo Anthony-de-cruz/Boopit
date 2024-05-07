@@ -9,6 +9,8 @@
 
 void SystemClock_Config(void);
 
+void init_display(void);
+
 // Debug
 
 #define DEBUG_BUFFER_SIZE 256

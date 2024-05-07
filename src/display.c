@@ -6,6 +6,8 @@
 
 #include "stm32f7xx_hal.h"
 
+extern GLCD_FONT GLCD_Font_6x8;
+extern GLCD_FONT GLCD_Font_16x24;
 
 /**
 * System Clock Configuration
@@ -41,8 +43,18 @@ void SystemClock_Config(void) {
 	HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5);
 }
 
-extern GLCD_FONT GLCD_Font_6x8;
-extern GLCD_FONT GLCD_Font_16x24;
+void init_display(void) {
+    SystemClock_Config(); //Config Clocks
+    Touch_Initialize(); // Init Touchscreen
+    GLCD_Initialize(); //Init GLCD
+    
+    GLCD_ClearScreen();
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
+    GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
+};
+
+
 
 char debug_buffers[DEBUG_BUFFER_COUNT][DEBUG_BUFFER_SIZE];
 
