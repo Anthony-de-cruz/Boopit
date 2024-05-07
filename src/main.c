@@ -17,8 +17,8 @@ uint32_t HAL_GetTick(void) {
 #endif
 
 int main(void){
-    while(1){
-        play_game();
-    }
+    
+    play_game();
+    
 }
 

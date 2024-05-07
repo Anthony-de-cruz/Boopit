@@ -11,10 +11,10 @@ extern int score;
 extern int lives;
 
 void MX_ADC_Init_Photo(void);
-void MX_ADC_Init_JoyX(void);
+//void MX_ADC_Init_JoyX(void);
 void MX_ADC_Init_JoyY(void);
 void MX_GPIO_Init_Photo(void);
-void MX_GPIO_Init_JoyX(void);
+//void MX_GPIO_Init_JoyX(void);
 void MX_GPIO_Init_JoyY(void);
 
 
