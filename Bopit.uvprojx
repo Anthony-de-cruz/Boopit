@@ -390,6 +390,11 @@
               <FileType>1</FileType>
               <FilePath>.\src\game.c</FilePath>
             </File>
+            <File>
+              <FileName>sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\sensor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

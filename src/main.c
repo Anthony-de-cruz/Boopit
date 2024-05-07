@@ -8,12 +8,15 @@
 #include "Board_Touch.h"
 
 #include "game.h"
+#include "sensor.h"
 
 
 
 int main(void){
-    
+    SensorInit();
+    while(1){
     play_game();
+    }
     
 }
 
