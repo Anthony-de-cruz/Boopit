@@ -89,26 +89,15 @@ void play_game(void){
     int startTime = 0, timeCurrent = 0, timeLimit = 0;
     int endTime;
     enum Task task = TOUCH;
+
     bool taskCompleted = false;
 
-    TOUCH_STATE tsc_state;
-    
-    
-    //display
-    SystemClock_Config(); //Config Clocks
-    Touch_Initialize(); // Init Touchscreen
-    GLCD_Initialize(); //Init GLCD
-    
-    GLCD_ClearScreen();
-    GLCD_SetFont(&GLCD_Font_16x24);
-    GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
-    GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
-  
+   
     //Game settings
     srand(HAL_GetTick());
     task = rand() % 4;
     //task = 3;
-    timeLimit = 7000; // in ms
+    timeLimit = 2000; // in ms
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
     
@@ -118,6 +107,7 @@ void play_game(void){
     
     while(timeCurrent < endTime){
     //while(1){
+
 
         switch (task) {
             case TOUCH:
@@ -133,6 +123,7 @@ void play_game(void){
                 taskCompleted = Joystick_sensor();
                 break;
         }
+
     
         //check completed
         if(taskCompleted){
@@ -146,11 +137,15 @@ void play_game(void){
         }
         
         //wait_delay(10);
+
         timeCurrent = HAL_GetTick();
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
         sprintf(debug_buffers[2], "livees: %i", lives);
         
         draw_game_screen(endTime - timeCurrent,  task);
     }
+
     lives--;
+
+
 }
