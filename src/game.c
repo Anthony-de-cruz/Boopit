@@ -80,6 +80,12 @@ void play_game(void){
     int timeLimit, random, timeCurrent;
     bool taskCompleted;
     
+    
+        char *title = "BOOPIT!";
+    int title_size = strlen(title) * 16;
+    
+    TOUCH_STATE tsc_state;
+    
     //general	
     GPIO_InitTypeDef gpio;
     LED_Initialize();     
@@ -111,9 +117,7 @@ void play_game(void){
     GLCD_SetFont(&GLCD_Font_16x24);
     GLCD_SetBackgroundColor(GLCD_COLOR_WHITE);
     GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
-    
-    TOUCH_STATE tsc_state;
-    
+  
     //Game settings
     //srand(time(NULL));
     //random = rand() % 3;
@@ -150,10 +154,14 @@ void play_game(void){
             LED_Off(0U);
         }
         
-        
-        
         wait_delay(10);
         timeCurrent += 10;
+        sprintf(debug_buffers[1], "timeCurrent: %i", timeCurrent);
+        
+        GLCD_SetFont(&GLCD_Font_16x24);
+        GLCD_DrawString((int)(480 / 2) - (title_size / 2), 50, "BOOPIT!");
+        
+        draw_game_screen();
     }
 }
 

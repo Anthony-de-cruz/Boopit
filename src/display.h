@@ -9,13 +9,6 @@
 
 void SystemClock_Config(void);
 
-#ifdef __RTX
-extern uint32_t os_time;
-uint32_t HAL_GetTick(void) {
-	return os_time;
-}
-#endif
-
 // Debug
 
 #define DEBUG_BUFFER_SIZE 256
@@ -47,7 +40,7 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state);
 
 void draw_main_menu(void);
 
-void draw_game(void);
+void draw_game_screen(void);
 
 void draw_end_screen(void);
 
@@ -62,6 +55,4 @@ void draw_end_screen(void);
     EndScreen();
         display whatever you want
         restart/Title screen button?
-    
-
 */

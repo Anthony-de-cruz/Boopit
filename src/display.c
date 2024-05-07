@@ -76,3 +76,7 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state) {
     }
     return 0;
 };
+
+void draw_game_screen(void) {
+    debug_print();
+}

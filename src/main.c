@@ -7,8 +7,14 @@
 #include "Board_GLCD.h"
 #include "Board_Touch.h"
 
-#include "display.h"
 #include "game.h"
+
+#ifdef __RTX
+extern uint32_t os_time;
+uint32_t HAL_GetTick(void) {
+	return os_time;
+}
+#endif
 
 int main(void){
     while(1){
