@@ -13,6 +13,14 @@
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
+#ifdef __RTX
+extern uint32_t os_time;
+uint32_t HAL_GetTick(void) {
+	return os_time;
+}
+#endif
+
+
 int score = 0;
 int lives = 3;
 
@@ -77,12 +85,9 @@ bool touch_sensor(void){
 
 
 void play_game(void){
-    int timeLimit, random, timeCurrent;
+    int startTime, timeCurrent, timeLimit;
+    enum Task task = TOUCH;
     bool taskCompleted;
-    
-    
-        char *title = "BOOPIT!";
-    int title_size = strlen(title) * 16;
     
     TOUCH_STATE tsc_state;
     
@@ -119,30 +124,26 @@ void play_game(void){
     GLCD_SetForegroundColor(GLCD_COLOR_BLACK);
   
     //Game settings
-    //srand(time(NULL));
-    //random = rand() % 3;
-    random = 1;
+    srand(HAL_GetTick());
+    task = rand() % 4;
     timeLimit = 7000; // in ms
-    timeCurrent = 0;
+    
+    startTime = HAL_GetTick();
     
     
     //while(timeCurrent < timeLimit){
     while(1){
-        
-        //find random 
-        if(random ==0) {
-            taskCompleted = touch_sensor();
+
+        switch (task) {
+            case TOUCH:
+                taskCompleted = touch_sensor();
+            case PHOTO:
+                taskCompleted = photo_sensor();
+            case BUTTON:
+                taskCompleted = button_sensor();
+            case JOYSTICK:
+                taskCompleted = Joystick_sensor();
         }
-        else if(random ==1) {
-            taskCompleted = photo_sensor();
-        }
-        else if(random ==2) {
-            taskCompleted = button_sensor();
-        }
-        else if(random ==3) {
-            taskCompleted = Joystick_sensor();
-        }
-    
     
         //check completed
         if(taskCompleted){
@@ -155,13 +156,10 @@ void play_game(void){
         }
         
         wait_delay(10);
-        timeCurrent += 10;
-        sprintf(debug_buffers[1], "timeCurrent: %i", timeCurrent);
+        timeCurrent = HAL_GetTick();
+        sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
         
-        GLCD_SetFont(&GLCD_Font_16x24);
-        GLCD_DrawString((int)(480 / 2) - (title_size / 2), 50, "BOOPIT!");
-        
-        draw_game_screen();
+        draw_game_screen(timeCurrent, timeLimit, task);
     }
 }
 

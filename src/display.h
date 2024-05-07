@@ -40,7 +40,7 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state);
 
 void draw_main_menu(void);
 
-void draw_game_screen(void);
+void draw_game_screen(int timeCurrent, int timeLimit, int random);
 
 void draw_end_screen(void);
 

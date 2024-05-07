@@ -2,6 +2,18 @@
 #include <stdbool.h>
 #define __GAME
 
+enum Task {
+    TOUCH,
+    PHOTO,
+    BUTTON,
+    JOYSTICK
+};
+
+static char *TASK_NAMES[] = {"Touch it!",
+                             "Hide it!",
+                             "Press it!",
+                             "Spin it!"};
+
 bool touch_sensor(void);
 bool photo_sensor(void);
 bool button_sensor(void);

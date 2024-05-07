@@ -1,4 +1,5 @@
 #include "display.h"
+#include "game.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -77,6 +78,19 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state) {
     return 0;
 };
 
-void draw_game_screen(void) {
+void draw_game_screen(int timeCurrent, int timeLimit, int task) {
+    
+    char timeRemainingBuffer[256];
+    char taskBuffer[256];
+    
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_DrawString(100, 50, "BOOPIT!");
+    
+    sprintf(timeRemainingBuffer, "  Remaining time: %i  ", (int)((timeLimit - timeCurrent) * 0.001));
+    GLCD_DrawString(100, 80, timeRemainingBuffer);
+    
+    sprintf(taskBuffer, "Task: %s", TASK_NAMES[task]);
+    GLCD_DrawString(100, 200, taskBuffer);
+    
     debug_print();
 }
