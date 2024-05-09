@@ -1,9 +1,11 @@
 #ifndef __DISPLAY
-#define __DISPLAY
+#include <stdbool.h>
 
 #include "GLCD_Config.h"
 #include "Board_GLCD.h"
 #include "Board_Touch.h"
+#define __DISPLAY
+
 
 // System Config
 
@@ -12,6 +14,8 @@ void SystemClock_Config(void);
 void init_display(void);
 
 // Debug
+
+#define DEBUG_MODE true
 
 #define DEBUG_BUFFER_SIZE 256
 #define DEBUG_BUFFER_COUNT 6
@@ -40,21 +44,10 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state);
 
 // Game Screens
 
-void draw_main_menu(void);
 
-void draw_game_screen(int timeCurrent, int random);
+
+
 
 void draw_end_screen(void);
 
 #endif /* __DISPLAY */
-
-
-/*
-    MainMenu();
-        play button exits the function
-    GameScreen(string task, int time);
-        put these things on screen + lives + score
-    EndScreen();
-        display whatever you want
-        restart/Title screen button?
-*/

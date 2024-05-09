@@ -1,14 +1,14 @@
 #include <stdbool.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
 #include "Board_LED.h"
 
 #include "game.h"
-#include "sensor.h"
 #include "display.h"
+#include "sensor.h"
+#include "globals.h"
 
 #define wait_delay HAL_Delay
 
@@ -62,6 +62,22 @@ bool touch_sensor(void){
    }
 }
 
+void draw_game_screen(int timeRemaining, int task) {
+    
+    char timeRemainingBuffer[256];
+    char taskBuffer[256];
+    
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_DrawString(100, 50, "BOOPIT!");
+    
+    sprintf(timeRemainingBuffer, "  Remaining time: %i  ", (int)timeRemaining/1000);
+    GLCD_DrawString(100, 80, timeRemainingBuffer);
+    
+    sprintf(taskBuffer, "Task: %s", TASK_NAMES[task]);
+    GLCD_DrawString(100, 200, taskBuffer);
+    
+    debug_print();
+}
 
 void play_game(void){
     int startTime = 0, timeCurrent = 0, timeLimit = 0;
@@ -70,7 +86,6 @@ void play_game(void){
 
     bool taskCompleted = false;
 
-   
     //Game settings
     srand(HAL_GetTick());
     task = (Task) rand() % 4;

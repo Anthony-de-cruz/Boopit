@@ -55,11 +55,13 @@ void init_display(void) {
 };
 
 
-
 char debug_buffers[DEBUG_BUFFER_COUNT][DEBUG_BUFFER_SIZE];
 
-void debug_print() {
+void debug_print(void) {
     int buffer;
+    if (!DEBUG_MODE) {
+        return;
+    }
     GLCD_SetFont(&GLCD_Font_6x8);
     for (buffer = 0; buffer < DEBUG_BUFFER_COUNT; buffer++) {
         GLCD_DrawString(6, 8 + (8 + 1) * buffer, debug_buffers[buffer]);
@@ -90,19 +92,4 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state) {
     return 0;
 };
 
-void draw_game_screen(int timeRemaining, int task) {
-    
-    char timeRemainingBuffer[256];
-    char taskBuffer[256];
-    
-    GLCD_SetFont(&GLCD_Font_16x24);
-    GLCD_DrawString(100, 50, "BOOPIT!");
-    
-    sprintf(timeRemainingBuffer, "  Remaining time: %i  ", (int)timeRemaining/1000);
-    GLCD_DrawString(100, 80, timeRemainingBuffer);
-    
-    sprintf(taskBuffer, "Task: %s", TASK_NAMES[task]);
-    GLCD_DrawString(100, 200, taskBuffer);
-    
-    debug_print();
-}
+
