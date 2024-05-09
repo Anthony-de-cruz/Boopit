@@ -1,13 +1,12 @@
-#include "sensor.h"
-
-
-#include "Board_LED.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
 
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
+#include "Board_LED.h"
+
+#include "sensor.h"
 
 ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;

@@ -12,11 +12,11 @@
 #include "sensor.h"
 
 
-
 int main(void){
     init_display();
     SensorInit();
     while(1){
+        
         play_game();
     }
 }

@@ -1,10 +1,10 @@
-#include "display.h"
-#include "game.h"
-
 #include <stdlib.h>
 #include <string.h>
 
 #include "stm32f7xx_hal.h"
+
+#include "display.h"
+#include "game.h"
 
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;

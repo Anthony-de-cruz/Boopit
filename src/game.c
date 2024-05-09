@@ -1,13 +1,14 @@
-#include "game.h"
-#include "sensor.h"
-#include "display.h"
+#include <stdbool.h>
+#include <stdlib.h>
+#include <time.h>
 
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
 #include "Board_LED.h"
-#include <stdbool.h>
-#include <stdlib.h>
-#include <time.h>
+
+#include "game.h"
+#include "sensor.h"
+#include "display.h"
 
 #define wait_delay HAL_Delay
 
@@ -80,6 +81,9 @@ void play_game(void){
     endTime = startTime + timeLimit;
     
     while(timeCurrent < endTime){
+        
+        timeCurrent = HAL_GetTick();
+        
         switch (task) {
             case TOUCH:
                 taskCompleted = touch_sensor();
@@ -106,7 +110,6 @@ void play_game(void){
             LED_Off(0U);
         }
 
-        timeCurrent = HAL_GetTick();
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
         sprintf(debug_buffers[2], "Lives: %i", lives);
         
