@@ -4,6 +4,7 @@
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
 #include "Board_LED.h"
+#include "Board_Touch.h"
 
 #include "game.h"
 #include "display.h"
@@ -34,12 +35,12 @@ void draw_game_screen(int timeRemaining, int task) {
     char taskBuffer[256];
     
     GLCD_SetFont(&GLCD_Font_16x24);
-    GLCD_DrawString(100, 50, "BOOPIT!");
+    GLCD_DrawString(150, 50, "BOOPIT!");
     
-    sprintf(timeRemainingBuffer, "  Remaining time: %i  ", (int)timeRemaining/1000);
+    sprintf(timeRemainingBuffer, "Remaining time: %i  ", (int)timeRemaining/1000);
     GLCD_DrawString(100, 80, timeRemainingBuffer);
     
-    sprintf(taskBuffer, "Task: %s", TASK_NAMES[task]);
+    sprintf(taskBuffer, "Task: %s   ", TASK_NAMES[task]);
     GLCD_DrawString(100, 200, taskBuffer);
     
     debug_print();
@@ -49,12 +50,14 @@ void play_game(void){
     int startTime = 0, timeCurrent = 0, timeLimit = 0;
     int endTime;
     Task task = TOUCH;
+    
+    TOUCH_STATE tsc_state;
 
     bool taskCompleted = false;
 
     //Game settings
     srand(HAL_GetTick());
-    task = (Task) rand() % 4;
+    task = (Task) rand() % 5;
     sprintf(debug_buffers[3], "Random num: %i", task);
     //task = 3; 
     timeLimit = 2000; // in ms
@@ -64,6 +67,8 @@ void play_game(void){
     while(timeCurrent < endTime){
         
         timeCurrent = HAL_GetTick();
+        
+        //Touch_GetState(&tsc_state);
         
         switch (task) {
             case TOUCH:
@@ -77,6 +82,9 @@ void play_game(void){
                 break;
             case JOYSTICK:
                 taskCompleted = joystick_sensor_pressed();
+                break;
+            case DISPLAY:
+//                taskCompleted = tsc_state.pressed;
                 break;
         }
     
