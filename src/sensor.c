@@ -1,11 +1,13 @@
 #include "sensor.h"
 
-#include "stm32f7xx_hal.h"
-#include "stm32f7xx_hal_gpio.h"
+
 #include "Board_LED.h"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <time.h>
+
+#include "stm32f7xx_hal.h"
+#include "stm32f7xx_hal_gpio.h"
 
 ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;
@@ -86,4 +88,28 @@ void MX_GPIO_Init_JoyY(void){
     GPIO_InitStructJoyY.Pin = GPIO_PIN_9;// #select GPIO GPIO_PIN_X
     GPIO_InitStructJoyY.Pull = GPIO_NOPULL;
     HAL_GPIO_Init(GPIOF, &GPIO_InitStructJoyY);// #select GPIO Group
+}
+
+void SensorInit(void){
+    //general	
+    GPIO_InitTypeDef gpio;
+    LED_Initialize();     
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    
+    //analog
+    MX_ADC_Init_Photo();
+    MX_ADC_Init_JoyY();
+    MX_GPIO_Init_Photo();
+    MX_GPIO_Init_JoyY();
+
+    HAL_Init();
+   
+    //digital
+	gpio.Mode = GPIO_MODE_INPUT;
+	gpio.Pull = GPIO_PULLDOWN; 
+	gpio.Speed = GPIO_SPEED_HIGH; 
+    
+    gpio.Pin = GPIO_PIN_6;
+	HAL_GPIO_Init(GPIOC, &gpio);
+    
 }

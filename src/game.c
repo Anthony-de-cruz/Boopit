@@ -24,91 +24,62 @@ uint32_t HAL_GetTick(void) {
 }
 #endif
 
-
 int score = 0;
 int lives = 3;
 
-
-
 bool photo_sensor(void){
-    
-    	if(HAL_ADC_GetValue(&hadcPhoto) > 1000){
-            //LED_On(0U);
-                return true;
-        }
-        else{
-            //LED_Off(0U);
-            return false;
-        }
+    if(HAL_ADC_GetValue(&hadcPhoto) > 1000){
+            return true;
+    }
+    else{
+        return false;
+    }
 }
 bool button_sensor(void){
-        //while(1){
-        
-       if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7)  ){
-          //  LED_On(0U);
-           return false;
-       }
-       
-       else{
-        //   LED_Off(0U);   
-           return true;
-       }
-    //}
+   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7)  ){
+       return false;
+   }
+   else{
+       return true;
+   }
 }
 bool Joystick_sensor(void){ 
-        
-    	if(HAL_ADC_GetValue(&hadcJoyY) < 400  || HAL_ADC_GetValue(&hadcJoyY) > 800 ){
-            //LED_On(0U);
-                return true;
-        }
-        else{
-            //LED_Off(0U);
-            return false;
-        }
+    if(HAL_ADC_GetValue(&hadcJoyY) < 400  || HAL_ADC_GetValue(&hadcJoyY) > 800 ){
+            return true;
+    }
+    else{
+        return false;
+    }
 }
 
-//D1
 bool touch_sensor(void){
-    
-    //while(1){
-        
-       if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6)  ){
-          //  LED_On(0U);
-           return true;
-       }
-       
-       else{
-        //   LED_Off(0U); 
-           return false;
-       }
-    //}
+   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6)  ){
+       return true;
+   }
+   else{
+       return false;
+   }
 }
 
 
 void play_game(void){
     int startTime = 0, timeCurrent = 0, timeLimit = 0;
     int endTime;
-    enum Task task = TOUCH;
+    Task task = TOUCH;
 
     bool taskCompleted = false;
 
    
     //Game settings
     srand(HAL_GetTick());
-    task = rand() % 4;
-    //task = 3;
+    task = (Task) rand() % 4;
+    sprintf(debug_buffers[3], "Random num: %i", task);
+    //task = 3; 
     timeLimit = 2000; // in ms
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
     
-
-    //timeCurrent = 0;
-    
-    
     while(timeCurrent < endTime){
-    //while(1){
-
-
         switch (task) {
             case TOUCH:
                 taskCompleted = touch_sensor();
@@ -123,7 +94,6 @@ void play_game(void){
                 taskCompleted = Joystick_sensor();
                 break;
         }
-
     
         //check completed
         if(taskCompleted){
@@ -135,17 +105,13 @@ void play_game(void){
         else{
             LED_Off(0U);
         }
-        
-        //wait_delay(10);
 
         timeCurrent = HAL_GetTick();
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
-        sprintf(debug_buffers[2], "livees: %i", lives);
+        sprintf(debug_buffers[2], "Lives: %i", lives);
         
         draw_game_screen(endTime - timeCurrent,  task);
     }
 
     lives--;
-
-
 }
