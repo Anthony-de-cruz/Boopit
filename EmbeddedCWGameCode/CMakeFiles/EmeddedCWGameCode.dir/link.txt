@@ -1,1 +1,0 @@
-/usr/bin/cc CMakeFiles/EmeddedCWGameCode.dir/src/main.c.o CMakeFiles/EmeddedCWGameCode.dir/src/Game.c.o -o EmeddedCWGameCode 
