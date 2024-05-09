@@ -9,13 +9,14 @@
 
 #include "game.h"
 #include "display.h"
+#include "sensor.h"
+
 
 
 int main(void){
-    
     init_display();
-    
-    play_game();
-    
+    SensorInit();
+    while(1){
+        play_game();
+    }
 }
-

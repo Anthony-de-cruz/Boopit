@@ -1,4 +1,5 @@
 #include "game.h"
+#include "sensor.h"
 #include "display.h"
 
 #include "stm32f7xx_hal.h"
@@ -13,6 +14,9 @@
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
+extern ADC_HandleTypeDef hadcPhoto;
+extern ADC_HandleTypeDef hadcJoyY;
+
 #ifdef __RTX
 extern uint32_t os_time;
 uint32_t HAL_GetTick(void) {
@@ -24,9 +28,6 @@ uint32_t HAL_GetTick(void) {
 int score = 0;
 int lives = 3;
 
-ADC_HandleTypeDef hadcPhoto;
-//ADC_HandleTypeDef hadcJoyX;
-ADC_HandleTypeDef hadcJoyY;
 
 
 bool photo_sensor(void){
@@ -85,191 +86,66 @@ bool touch_sensor(void){
 
 
 void play_game(void){
-    int startTime, timeCurrent, timeLimit;
+    int startTime = 0, timeCurrent = 0, timeLimit = 0;
+    int endTime;
     enum Task task = TOUCH;
-    bool taskCompleted;
-    
-    //general	
-    GPIO_InitTypeDef gpio;
-    LED_Initialize();     
-    __HAL_RCC_GPIOC_CLK_ENABLE();
-    
-    //analogue	
-    MX_ADC_Init_Photo();
-    //MX_ADC_Init_JoyX(); 
-    MX_ADC_Init_JoyY();
-    MX_GPIO_Init_Photo();
-    //MX_GPIO_Init_JoyX();
-    MX_GPIO_Init_JoyY();
-    HAL_Init();
-   
-    //digital
-	gpio.Mode = GPIO_MODE_INPUT;
-	gpio.Pull = GPIO_PULLDOWN; 
-	gpio.Speed = GPIO_SPEED_HIGH; 
-    
-    gpio.Pin = GPIO_PIN_6;
-	HAL_GPIO_Init(GPIOC, &gpio);
 
+    bool taskCompleted = false;
+
+   
     //Game settings
     srand(HAL_GetTick());
     task = rand() % 4;
-    timeLimit = 7000; // in ms
-    
+    //task = 3;
+    timeLimit = 2000; // in ms
     startTime = HAL_GetTick();
+    endTime = startTime + timeLimit;
     
-    //while(timeCurrent < timeLimit){
-    while(1){
+
+    //timeCurrent = 0;
+    
+    
+    while(timeCurrent < endTime){
+    //while(1){
+
 
         switch (task) {
             case TOUCH:
                 taskCompleted = touch_sensor();
+                break;
             case PHOTO:
                 taskCompleted = photo_sensor();
+                break;
             case BUTTON:
                 taskCompleted = button_sensor();
+                break;
             case JOYSTICK:
                 taskCompleted = Joystick_sensor();
+                break;
         }
 
-        wait_delay(10);
+    
+        //check completed
+        if(taskCompleted){
+            LED_On(0u);
+            score++;
+            return;
+            
+        }
+        else{
+            LED_Off(0U);
+        }
+        
+        //wait_delay(10);
+
         timeCurrent = HAL_GetTick();
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
+        sprintf(debug_buffers[2], "livees: %i", lives);
         
-        draw_game_screen(timeCurrent, timeLimit, task);
+        draw_game_screen(endTime - timeCurrent,  task);
     }
-    
-    //check completed
-    if(taskCompleted){
-        LED_On(0u);
-        score++;
-        //wait_delay(1);
-        //exit(1);
-    }
-    else{
-        LED_Off(0U);
-        lives--;
-    }
+
+    lives--;
+
+
 }
-
-
-
-//Photo Resistor
-void MX_ADC_Init_Photo(void)
-{
-    ADC_ChannelConfTypeDef sConfig;
- 
-	// Enable ADC CLOCK
-	//__HAL_RCC_ADC1_CLK_ENABLE();
-	//__HAL_RCC_ADC2_CLK_ENABLE();
-	__HAL_RCC_ADC3_CLK_ENABLE();
-
-	/// Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)	
-	hadcPhoto.Instance = ADC3; //# Select the ADC (ADC1, ADC2, ADC3)
-	hadcPhoto.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
-	hadcPhoto.Init.Resolution = ADC_RESOLUTION_12B;
-	hadcPhoto.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadcPhoto.Init.NbrOfConversion = 3;
-    hadcPhoto.Init.ScanConvMode = ENABLE;
-	hadcPhoto.Init.ContinuousConvMode = ENABLE;
-	hadcPhoto.Init.DiscontinuousConvMode = DISABLE;
-	HAL_ADC_Init(&hadcPhoto);
-	//configure channal
-	sConfig.Rank = 1;
-	sConfig.Channel = ADC_CHANNEL_0;//# Select the ADC Channel (ADC_CHANNEL_X)
-	sConfig.SamplingTime = ADC_SAMPLETIME_28CYCLES;
-	HAL_ADC_ConfigChannel(&hadcPhoto, &sConfig);
-	HAL_ADC_Start(&hadcPhoto);
-	HAL_ADC_PollForConversion(&hadcPhoto, HAL_MAX_DELAY);
-}
-
- 
-GPIO_InitTypeDef GPIO_InitStruct_Photo;
-void MX_GPIO_Init_Photo(void){
-    __HAL_RCC_GPIOA_CLK_ENABLE();
-    GPIO_InitStruct_Photo.Mode = GPIO_MODE_ANALOG; // configure to analog input mode
-    GPIO_InitStruct_Photo.Pin = GPIO_PIN_0;// #select GPIO GPIO_PIN_X
-    GPIO_InitStruct_Photo.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOA, &GPIO_InitStruct_Photo);// #select GPIO Group
-}
-
-/*
-//Joystick X
-void MX_ADC_Init_JoyX(void)
-{
-    ADC_ChannelConfTypeDef sConfigJoyX;
- 
-	// Enable ADC CLOCK
-	//__HAL_RCC_ADC1_CLK_ENABLE();
-	//__HAL_RCC_ADC2_CLK_ENABLE();
-    __HAL_RCC_ADC3_CLK_ENABLE();
-
-	// Configure the global features of the ADC (Clock, Resolution, Data Alignment and number
-	of conversion) 	
-	hadcJoyX.Instance = ADC3; //# Select the ADC (ADC1, ADC2, ADC3)
-	hadcJoyX.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
-	hadcJoyX.Init.Resolution = ADC_RESOLUTION_10B;
-	hadcJoyX.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadcJoyX.Init.NbrOfConversion = 3;
-    hadcJoyX.Init.ScanConvMode = ENABLE;
-	hadcJoyX.Init.ContinuousConvMode = ENABLE;
-	hadcJoyX.Init.DiscontinuousConvMode = DISABLE;
-	HAL_ADC_Init(&hadcJoyX);
-	//configure channal
-	sConfigJoyX.Rank = 3;
-	sConfigJoyX.Channel = ADC_CHANNEL_8;//# Select the ADC Channel (ADC_CHANNEL_X)
-	sConfigJoyX.SamplingTime = ADC_SAMPLETIME_28CYCLES;
-	HAL_ADC_ConfigChannel(&hadcJoyX, &sConfigJoyX);
-	HAL_ADC_Start(&hadcJoyX);
-	HAL_ADC_PollForConversion(&hadcJoyX, HAL_MAX_DELAY);
-}
-
-GPIO_InitTypeDef GPIO_InitStructJoyX;
-void MX_GPIO_Init_JoyX(void){
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    GPIO_InitStructJoyX.Mode = GPIO_MODE_ANALOG; // configure to analog input mode
-    GPIO_InitStructJoyX.Pin = GPIO_PIN_10;// #select GPIO GPIO_PIN_X
-    GPIO_InitStructJoyX.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStructJoyX);// #select GPIO Group
-}
-*/
-
-//Joystick Y
-void MX_ADC_Init_JoyY(void)
-{
-    ADC_ChannelConfTypeDef sConfigJoyY;
- 
-	/* Enable ADC CLOCK */
-	//__HAL_RCC_ADC1_CLK_ENABLE();
-	//__HAL_RCC_ADC2_CLK_ENABLE();
-    __HAL_RCC_ADC3_CLK_ENABLE();
-
-	/* Configure the global features of the ADC (Clock, Resolution, Data Alignment and number
-	of conversion) */		
-	hadcJoyY.Instance = ADC3; //# Select the ADC (ADC1, ADC2, ADC3)
-	hadcJoyY.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
-	hadcJoyY.Init.Resolution = ADC_RESOLUTION_10B;
-	hadcJoyY.Init.DataAlign = ADC_DATAALIGN_RIGHT;
-	hadcJoyY.Init.NbrOfConversion = 3;
-    hadcJoyY.Init.ScanConvMode = ENABLE;
-	hadcJoyY.Init.ContinuousConvMode = ENABLE;
-	hadcJoyY.Init.DiscontinuousConvMode = DISABLE;
-	HAL_ADC_Init(&hadcJoyY);
-	//configure channal
-	sConfigJoyY.Rank = 3;
-	sConfigJoyY.Channel = ADC_CHANNEL_7;//# Select the ADC Channel (ADC_CHANNEL_X)
-	sConfigJoyY.SamplingTime = ADC_SAMPLETIME_28CYCLES;
-	HAL_ADC_ConfigChannel(&hadcJoyY, &sConfigJoyY);
-	HAL_ADC_Start(&hadcJoyY);
-	HAL_ADC_PollForConversion(&hadcJoyY, HAL_MAX_DELAY);
-}
-
-GPIO_InitTypeDef GPIO_InitStructJoyY;
-void MX_GPIO_Init_JoyY(void){
-    __HAL_RCC_GPIOF_CLK_ENABLE();
-    GPIO_InitStructJoyY.Mode = GPIO_MODE_ANALOG; // configure to analog input mode
-    GPIO_InitStructJoyY.Pin = GPIO_PIN_9;// #select GPIO GPIO_PIN_X
-    GPIO_InitStructJoyY.Pull = GPIO_NOPULL;
-    HAL_GPIO_Init(GPIOF, &GPIO_InitStructJoyY);// #select GPIO Group
-}
-
