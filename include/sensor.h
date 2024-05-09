@@ -7,10 +7,10 @@
 //extern ADC_HandleTypeDef hadcPhoto;
 //extern ADC_HandleTypeDef hadcJoyY;
 
-bool touch_sensor(void);
-bool photo_sensor(void);
-bool button_sensor(void);
-bool Joystick_sensor(void);
+bool touch_sensor_pressed(void);
+bool photo_sensor_pressed(void);
+bool button_sensor_pressed(void);
+bool joystick_sensor_pressed(void);
 
 
 void MX_ADC_Init_Photo(void);

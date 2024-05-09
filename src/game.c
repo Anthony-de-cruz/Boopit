@@ -28,40 +28,6 @@ uint32_t HAL_GetTick(void) {
 int score = 0;
 int lives = 3;
 
-bool photo_sensor(void){
-    if(HAL_ADC_GetValue(&hadcPhoto) > 1000){
-            return true;
-    }
-    else{
-        return false;
-    }
-}
-bool button_sensor(void){
-   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7)  ){
-       return false;
-   }
-   else{
-       return true;
-   }
-}
-bool Joystick_sensor(void){ 
-    if(HAL_ADC_GetValue(&hadcJoyY) < 400  || HAL_ADC_GetValue(&hadcJoyY) > 800 ){
-            return true;
-    }
-    else{
-        return false;
-    }
-}
-
-bool touch_sensor(void){
-   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6)  ){
-       return true;
-   }
-   else{
-       return false;
-   }
-}
-
 void draw_game_screen(int timeRemaining, int task) {
     
     char timeRemainingBuffer[256];
@@ -101,16 +67,16 @@ void play_game(void){
         
         switch (task) {
             case TOUCH:
-                taskCompleted = touch_sensor();
+                taskCompleted = touch_sensor_pressed();
                 break;
             case PHOTO:
-                taskCompleted = photo_sensor();
+                taskCompleted = photo_sensor_pressed();
                 break;
             case BUTTON:
-                taskCompleted = button_sensor();
+                taskCompleted = button_sensor_pressed();
                 break;
             case JOYSTICK:
-                taskCompleted = Joystick_sensor();
+                taskCompleted = joystick_sensor_pressed();
                 break;
         }
     

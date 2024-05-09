@@ -11,6 +11,40 @@
 ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;
 
+bool photo_sensor_pressed(void){
+    if(HAL_ADC_GetValue(&hadcPhoto) > 1000){
+            return true;
+    }
+    else{
+        return false;
+    }
+}
+bool button_sensor_pressed(void){
+   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7)  ){
+       return false;
+   }
+   else{
+       return true;
+   }
+}
+bool Joystick_sensor_pressed(void){ 
+    if(HAL_ADC_GetValue(&hadcJoyY) < 400  || HAL_ADC_GetValue(&hadcJoyY) > 800 ){
+            return true;
+    }
+    else{
+        return false;
+    }
+}
+
+bool touch_sensor_pressed(void){
+   if( HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6)  ){
+       return true;
+   }
+   else{
+       return false;
+   }
+}
+
 //Photo Resistor
 void MX_ADC_Init_Photo(void)
 {
