@@ -2,6 +2,7 @@
 #include <string.h>
 
 #include "stm32f7xx_hal.h"
+#include "Board_Touch.h"
 
 #include "display.h"
 #include "game.h"

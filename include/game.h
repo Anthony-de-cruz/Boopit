@@ -5,13 +5,15 @@ typedef enum Task {
     TOUCH,
     PHOTO,
     BUTTON,
-    JOYSTICK
+    JOYSTICK,
+    DISPLAY
 } Task;
 
 static char *TASK_NAMES[] = {"Touch it!",
                              "Hide it!",
                              "Press it!",
-                             "Spin it!"};
+                             "Spin it!",
+                             "Boop it!"};
 
 void play_game(void);
 

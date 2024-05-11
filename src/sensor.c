@@ -27,7 +27,7 @@ bool button_sensor_pressed(void){
        return true;
    }
 }
-bool Joystick_sensor_pressed(void){ 
+bool joystick_sensor_pressed(void){ 
     if(HAL_ADC_GetValue(&hadcJoyY) < 400  || HAL_ADC_GetValue(&hadcJoyY) > 800 ){
             return true;
     }

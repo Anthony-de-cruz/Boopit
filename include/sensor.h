@@ -12,7 +12,6 @@ bool photo_sensor_pressed(void);
 bool button_sensor_pressed(void);
 bool joystick_sensor_pressed(void);
 
-
 void MX_ADC_Init_Photo(void);
 void MX_ADC_Init_JoyY(void);
 void MX_GPIO_Init_Photo(void);
