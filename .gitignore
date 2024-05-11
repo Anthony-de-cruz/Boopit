@@ -64,3 +64,6 @@ out
 *.cbuild.yml
 *.cbuild-idx.yml
 *.cbuild-set.yml
+
+# RTE
+*/RTE/*
