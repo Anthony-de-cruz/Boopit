@@ -1,0 +1,13 @@
+{
+    "cmake.configureOnOpen": false,
+    "cmsis-csolution.actions": [
+        {
+            "path": "Boopit.csolution.yml",
+            "target": "STM32F746NGHx",
+            "config": {
+                "run": "Flash Device",
+                "debug": "Arm Debugger"
+            }
+        }
+    ]
+}

@@ -1,0 +1,24 @@
+cbuild-pack:
+  resolved-packs:
+    - resolved-pack: ARM::CMSIS@6.0.0
+      selected-by-pack:
+        - ARM::CMSIS
+    - resolved-pack: ARM::CMSIS-DSP@1.15.0
+      selected-by-pack:
+        - ARM::CMSIS-DSP
+    - resolved-pack: ARM::CMSIS-NN@4.1.0
+      selected-by-pack:
+        - ARM::CMSIS-NN
+    - resolved-pack: ARM::CMSIS-RTX@5.8.0
+      selected-by-pack:
+        - ARM::CMSIS-RTX
+    - resolved-pack: Keil::MDK-Middleware@7.17.0
+      selected-by-pack:
+        - Keil::MDK-Middleware
+    - resolved-pack: Keil::MDK-Middleware_Graphics@1.3.1
+      selected-by-pack:
+        - Keil::MDK-Middleware_Graphics
+    - resolved-pack: Keil::STM32F7xx_DFP@2.16.0
+      selected-by-pack:
+        - Keil::STM32F7xx_DFP
+        - Keil::STM32F7xx_DFP@2.16.0
