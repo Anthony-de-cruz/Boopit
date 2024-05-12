@@ -5,6 +5,11 @@
 #include "Board_Touch.h"
 #define __DISPLAY
 
+// Constants
+
+#define SCREEN_WIDTH 480
+#define SCREEN_HEIGHT 272
+
 // System Config
 
 void SystemClock_Config(void);
@@ -33,7 +38,8 @@ typedef struct Button {
     int height;
     char *text;
     GLCD_FONT *font;
-    bool pressed;
+    int input_delay;
+    int time_pressed;
 } Button;
 
 void draw_button(Button *button);

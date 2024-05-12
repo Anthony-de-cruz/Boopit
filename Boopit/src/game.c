@@ -49,7 +49,7 @@ void play_game(UserData *userData) {
     task = (Task)rand() % 5;
     sprintf(debug_buffers[3], "Random num: %i", task);
     // task = 3;
-    timeLimit = 2000; // in ms
+    timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
 

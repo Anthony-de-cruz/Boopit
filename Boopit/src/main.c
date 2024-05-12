@@ -19,11 +19,11 @@ uint32_t HAL_GetTick(void) { return ((uint32_t)osRtxInfo.kernel.tick); }
 int main(void) {
     bool running = true;
 
-    int lives = 0;
-    int score = 0;
     Difficulty difficulty = MEDIUM;
-
-    UserData userData = {difficulty, lives, score};
+    int lives = 0;
+    int baseTime = 0;
+    int score = 0;
+    UserData userData = {difficulty, lives, baseTime, score};
 
     init_display();
     SensorInit();
