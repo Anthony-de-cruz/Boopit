@@ -9,22 +9,31 @@
 #include "game.h"
 #include "mainMenu.h"
 #include "sensor.h"
+#include "userData.h"
 
 // HAL_GetTick replacement
 // from https://developer.arm.com/documentation/ka002485/latest/
 extern osRtxInfo_t osRtxInfo;
-
 uint32_t HAL_GetTick(void) { return ((uint32_t)osRtxInfo.kernel.tick); }
 
 int main(void) {
     bool running = true;
 
+    int lives, score;
+    Difficulty difficulty = MEDIUM;
+
+    UserData userData = {
+        difficulty,
+        lives,
+        score
+    };
+
     init_display();
     SensorInit();
 
     while (running) {
-        main_menu();
-        play_game();
-        end_screen();
+        main_menu(&userData);
+        play_game(&userData);
+        end_screen(&userData);
     }
 }
