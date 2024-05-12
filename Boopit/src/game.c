@@ -10,8 +10,6 @@
 #include "game.h"
 #include "sensor.h"
 
-#define wait_delay HAL_Delay
-
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 

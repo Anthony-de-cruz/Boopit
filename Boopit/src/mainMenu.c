@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "stm32f7xx_hal.h"
-
 #include "display.h"
 #include "mainMenu.h"
 
