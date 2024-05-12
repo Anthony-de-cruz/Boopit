@@ -16,8 +16,6 @@ project:
     #- pack: Keil::MDK-Middleware_Graphics
     - pack: ARM::CMSIS
     - pack: ARM::CMSIS-RTX
-    - pack: ARM::CMSIS-NN
-    - pack: ARM::CMSIS-DSP
 
   # List components to use for your application.
   # A software component is a re-usable unit that may be configurable.
