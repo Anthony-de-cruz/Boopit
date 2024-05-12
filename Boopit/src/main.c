@@ -23,16 +23,31 @@ int main(void) {
     int lives = 0;
     int baseTime = 0;
     int score = 0;
-    UserData userData = {difficulty, lives, baseTime, score};
+    NextScene nextScene = MAIN_MENU;
+    UserData userData = {difficulty, lives, baseTime, score, nextScene};
 
     init_display();
     SensorInit();
 
+    //    while (running) {
+    //        main_menu(&userData);
+    //        while (userData.lives >= 0) {
+    //            play_game(&userData);
+    //        }
+    //        end_screen(&userData);
+    //    }
+
     while (running) {
-        main_menu(&userData);
-        while (userData.lives >= 0) {
+        switch (userData.nextScene) {
+        case MAIN_MENU:
+            main_menu(&userData);
+            break;
+        case GAME:
             play_game(&userData);
+            break;
+        case END:
+            end_screen(&userData);
+            break;
         }
-        end_screen(&userData);
     }
 }

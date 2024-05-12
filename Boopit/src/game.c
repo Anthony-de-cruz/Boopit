@@ -16,7 +16,7 @@ extern GLCD_FONT GLCD_Font_16x24;
 extern ADC_HandleTypeDef hadcPhoto;
 extern ADC_HandleTypeDef hadcJoyY;
 
-void draw_game_screen(int timeRemaining, int task) {
+static void draw_game_screen(int timeRemaining, int task) {
 
     char timeRemainingBuffer[256];
     char taskBuffer[256];
@@ -39,7 +39,6 @@ void play_game(UserData *userData) {
     int endTime;
     Task task = TOUCH;
 
-    int presses = 0;
     TOUCH_STATE tsc_state;
 
     bool taskCompleted = false;
@@ -58,9 +57,6 @@ void play_game(UserData *userData) {
         timeCurrent = HAL_GetTick();
 
         Touch_GetState(&tsc_state);
-        if (tsc_state.pressed) {
-            presses++;
-        }
 
         switch (task) {
         case TOUCH:
@@ -91,12 +87,16 @@ void play_game(UserData *userData) {
         }
 
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
-        sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i -> Presses: %i    ",
-                tsc_state.pressed, tsc_state.x, tsc_state.y, presses);
+        sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i   ",
+                tsc_state.pressed, tsc_state.x, tsc_state.y);
         sprintf(debug_buffers[2], "Lives: %i", userData->lives);
 
         draw_game_screen(endTime - timeCurrent, task);
     }
 
     userData->lives--;
+
+    if (userData->lives < 0) {
+        userData->nextScene = END;
+    }
 }

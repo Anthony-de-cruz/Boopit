@@ -3,15 +3,16 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "stm32f7xx_hal.h"
+
 #include "display.h"
 #include "mainMenu.h"
-#include "stm32f7xx_hal.h"
 #include "userData.h"
 
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
-Button play_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
+static Button play_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                       (int)(SCREEN_HEIGHT * 0.50) - (50 / 2),
                       100,
                       50,
@@ -20,7 +21,7 @@ Button play_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                       0,
                       0};
 
-Button difficulty_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
+static Button difficulty_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                             (int)(SCREEN_HEIGHT * 0.50) - (50 / 2) + 70,
                             280,
                             50,
@@ -29,7 +30,7 @@ Button difficulty_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                             150,
                             0};
 
-void handle_difficulty(UserData *userData) {
+static void handle_difficulty(UserData *userData) {
 
     switch (userData->difficulty) {
     case EASY:
@@ -50,7 +51,7 @@ void handle_difficulty(UserData *userData) {
     }
 }
 
-void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
+static void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
 
     Touch_GetState(tsc_state);
     if (!tsc_state->pressed) {
@@ -60,7 +61,9 @@ void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
     if (check_button_press(&play_button, tsc_state)) {
         handle_difficulty(userData);
         userData->score = 0;
+        userData->nextScene = GAME;
         *inMenu = false;
+
     } else if (check_button_press(&difficulty_button, tsc_state)) {
         if (userData->difficulty < DIFFICULTY_COUNT - 1) {
             userData->difficulty++;
@@ -70,7 +73,7 @@ void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
     }
 }
 
-void draw_main_menu(Difficulty *difficulty) {
+static void draw_main_menu(Difficulty *difficulty) {
 
     char *title = "BOOPIT!";
     int title_size = strlen(title) * 16;

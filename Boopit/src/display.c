@@ -96,8 +96,8 @@ bool check_button_press(Button *button, TOUCH_STATE *tsc_state) {
 
         if (button->time_pressed + button->input_delay < currentTime) {
             button->time_pressed = currentTime;
-            return 1;
+            return true;
         }
     }
-    return 0;
+    return false;
 };
