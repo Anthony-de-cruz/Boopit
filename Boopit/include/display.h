@@ -22,6 +22,7 @@ extern char debug_buffers[DEBUG_BUFFER_COUNT][DEBUG_BUFFER_SIZE];
 
 void debug_print(void);
 void debug_clear(unsigned int buffer);
+void debug_clear_all(void);
 
 // Widgets
 

@@ -68,7 +68,13 @@ void debug_print(void) {
 }
 
 void debug_clear(unsigned int buffer) {
-    memset(debug_buffers[buffer], 0, sizeof(debug_buffers[buffer]));
+    memset(debug_buffers[buffer], 0, DEBUG_BUFFER_SIZE);
+}
+
+void debug_clear_all(void) {
+    for (int buffer = 0; buffer < DEBUG_BUFFER_COUNT; buffer++) {
+        debug_clear(buffer);
+    }
 }
 
 void draw_button(Button *button) {

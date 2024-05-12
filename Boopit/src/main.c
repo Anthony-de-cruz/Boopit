@@ -23,11 +23,7 @@ int main(void) {
     int score = 0;
     Difficulty difficulty = MEDIUM;
 
-    UserData userData = {
-        difficulty,
-        lives,
-        score
-    };
+    UserData userData = {difficulty, lives, score};
 
     init_display();
     SensorInit();

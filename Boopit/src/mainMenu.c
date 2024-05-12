@@ -1,9 +1,12 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "display.h"
 #include "mainMenu.h"
+#include "stm32f7xx_hal.h"
+#include "userData.h"
 
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
@@ -22,6 +25,20 @@ Button difficulty_button = {(int)(480 * 0.15) - (100 / 2),
                             &GLCD_Font_16x24,
                             0};
 
+void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
+
+    Touch_GetState(tsc_state);
+    if (tsc_state->pressed) {
+        if (check_button_press(&play_button, tsc_state)) {
+            userData->lives = 3;
+            userData->difficulty = MEDIUM;
+            *inMenu = false;
+        } else if (check_button_press(&quit_button, tsc_state)) {
+            exit(0);
+        } else if (check_button_press(&difficulty_button, tsc_state)) {
+        }
+    }
+}
 
 void draw_main_menu() {
 
@@ -34,30 +51,26 @@ void draw_main_menu() {
     draw_button(&play_button);
     draw_button(&difficulty_button);
     draw_button(&quit_button);
+
+    debug_print();
 };
 
 void main_menu(UserData *userData) {
-    int presses = 0;
     TOUCH_STATE tsc_state;
 
     bool inMenu = true;
 
     GLCD_ClearScreen();
+    debug_clear_all();
 
     while (inMenu) {
 
-        Touch_GetState(&tsc_state);
-        if (tsc_state.pressed) {
-            presses++;
-            if (check_button_press(&play_button, &tsc_state)) {
-                userData->lives = 3;
-                inMenu = false;
-                continue;
-            } else if (check_button_press(&quit_button, &tsc_state)) {
-                exit(0);
-            } else if (check_button_press(&difficulty_button, &tsc_state)) {
-            }
-        }
+        handle_input(&tsc_state, userData, &inMenu);
+
+        sprintf(debug_buffers[0], "System Time: %ims   ", HAL_GetTick());
+        sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i    ",
+                tsc_state.pressed, tsc_state.x, tsc_state.y);
+        sprintf(debug_buffers[2], "Difficulty: %i   ", userData->difficulty);
 
         draw_main_menu();
     }
