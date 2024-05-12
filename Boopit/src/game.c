@@ -16,6 +16,8 @@ extern GLCD_FONT GLCD_Font_16x24;
 extern ADC_HandleTypeDef hadcPhoto;
 extern ADC_HandleTypeDef hadcJoyY;
 
+static int last_pressed;
+
 static void draw_game_screen(int timeRemaining, int task) {
 
     char timeRemainingBuffer[256];
@@ -46,11 +48,14 @@ void play_game(UserData *userData) {
     // Game settings
     srand(HAL_GetTick());
     task = (Task)rand() % 5;
+    task = 4;
     sprintf(debug_buffers[3], "Random num: %i", task);
     // task = 3;
     timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
+
+    int input_delay = 500;
 
     while (timeCurrent < endTime) {
 
@@ -58,22 +63,26 @@ void play_game(UserData *userData) {
 
         Touch_GetState(&tsc_state);
 
-        switch (task) {
-        case TOUCH:
-            taskCompleted = touch_sensor_pressed();
-            break;
-        case PHOTO:
-            taskCompleted = photo_sensor_pressed();
-            break;
-        case BUTTON:
-            taskCompleted = button_sensor_pressed();
-            break;
-        case JOYSTICK:
-            taskCompleted = joystick_sensor_pressed();
-            break;
-        case DISPLAY:
-            taskCompleted = tsc_state.pressed;
-            break;
+        if (last_pressed + input_delay < timeCurrent) {
+            last_pressed = timeCurrent;
+
+            switch (task) {
+            case TOUCH:
+                taskCompleted = touch_sensor_pressed();
+                break;
+            case PHOTO:
+                taskCompleted = photo_sensor_pressed();
+                break;
+            case BUTTON:
+                taskCompleted = button_sensor_pressed();
+                break;
+            case JOYSTICK:
+                taskCompleted = joystick_sensor_pressed();
+                break;
+            case DISPLAY:
+                taskCompleted = tsc_state.pressed;
+                break;
+            }
         }
 
         // check completed
@@ -87,9 +96,10 @@ void play_game(UserData *userData) {
         }
 
         sprintf(debug_buffers[0], "System Time: %ims", timeCurrent);
-        sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i   ",
-                tsc_state.pressed, tsc_state.x, tsc_state.y);
+        sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i   ", tsc_state.pressed,
+                tsc_state.x, tsc_state.y);
         sprintf(debug_buffers[2], "Lives: %i", userData->lives);
+        sprintf(debug_buffers[4], "Score: %i", userData->score);
 
         draw_game_screen(endTime - timeCurrent, task);
     }
