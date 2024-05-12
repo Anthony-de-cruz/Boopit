@@ -3,12 +3,18 @@ project:
   groups:
     - group: Source Files
       files:
-        - file: ./main.c
-        - file: ./sensor.c
-        - file: ./display.c
-        - file: ./game.c
-        - file: ./mainMenu.c
-        - file: ./endScreen.c
+        - file: src/main.c
+        - file: src/sensor.c
+        - file: src/display.c
+        - file: src/game.c
+        - file: src/mainMenu.c
+        - file: src/endScreen.c
+        - file: include/endScreen.h
+        - file: include/display.h
+        - file: include/game.h
+        - file: include/globals.h
+        - file: include/mainMenu.h
+        - file: include/sensor.h
 
   packs:
     - pack: Keil::STM32F7xx_DFP
