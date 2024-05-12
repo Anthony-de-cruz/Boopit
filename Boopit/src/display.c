@@ -90,10 +90,12 @@ void draw_button(Button *button) {
 
 bool check_button_press(Button *button, TOUCH_STATE *tsc_state) {
     if (tsc_state->x > button->x && tsc_state->x < button->x + button->width &&
-        button->time_pressed + button->input_delay < HAL_GetTick()) {
-        if (tsc_state->y > button->y &&
-            tsc_state->y < button->y + button->height) {
-            button->time_pressed = HAL_GetTick();
+        tsc_state->y > button->y && tsc_state->y < button->y + button->height) {
+
+        int currentTime = HAL_GetTick();
+
+        if (button->time_pressed + button->input_delay < currentTime) {
+            button->time_pressed = currentTime;
             return 1;
         }
     }
