@@ -1,4 +1,5 @@
 #include <stdbool.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "stm32f7xx_hal.h"
@@ -23,7 +24,14 @@ Button difficulty_button = {(int)(480 * 0.15) - (100 / 2),
                             &GLCD_Font_16x24,
                             0};
 
+
 void draw_main_menu() {
+
+    char *title = "BOOPIT!";
+    int title_size = strlen(title) * 16;
+
+    GLCD_SetFont(&GLCD_Font_16x24);
+    GLCD_DrawString((int)(480 / 2) - (title_size / 2), 50, title);
 
     draw_button(&play_button);
     draw_button(&difficulty_button);
@@ -31,14 +39,29 @@ void draw_main_menu() {
 };
 
 void main_menu(UserData *userData) {
+    int presses = 0;
+    TOUCH_STATE tsc_state;
 
-    char *title = "BOOPIT!";
-    int title_size = strlen(title) * 16;
+    bool inMenu = true;
 
-    bool running = true;
+    GLCD_ClearScreen();
 
-    while (running) {
+    while (inMenu) {
+
+        Touch_GetState(&tsc_state);
+        if (tsc_state.pressed) {
+            presses++;
+            if (check_button_press(&play_button, &tsc_state)) {
+                userData->lives = 3;
+                inMenu = false;
+                continue;
+            } else if (check_button_press(&quit_button, &tsc_state)) {
+                exit(0);
+            } else if (check_button_press(&difficulty_button, &tsc_state)) {
+            }
+        }
 
         draw_main_menu();
     }
+    GLCD_ClearScreen();
 };

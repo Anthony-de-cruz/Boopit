@@ -19,7 +19,8 @@ uint32_t HAL_GetTick(void) { return ((uint32_t)osRtxInfo.kernel.tick); }
 int main(void) {
     bool running = true;
 
-    int lives, score;
+    int lives = 0;
+    int score = 0;
     Difficulty difficulty = MEDIUM;
 
     UserData userData = {
@@ -33,7 +34,9 @@ int main(void) {
 
     while (running) {
         main_menu(&userData);
-        play_game(&userData);
+        while (userData.lives >= 0) {
+            play_game(&userData);
+        }
         end_screen(&userData);
     }
 }
