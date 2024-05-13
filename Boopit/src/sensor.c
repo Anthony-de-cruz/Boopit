@@ -11,6 +11,11 @@
 ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;
 
+/**
+ * @brief Read light sensor value
+ *
+ * @param hadcPhoto input value from reisitor
+ */
 bool photo_sensor_pressed(void) {
     if (HAL_ADC_GetValue(&hadcPhoto) > 900) {
         return true;
@@ -18,6 +23,11 @@ bool photo_sensor_pressed(void) {
         return false;
     }
 }
+
+/**
+ * @brief Read Button sensor value
+ *
+ */
 bool button_sensor_pressed(void) {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_7)) {
         return false;
@@ -25,6 +35,12 @@ bool button_sensor_pressed(void) {
         return true;
     }
 }
+
+/**  
+ * @brief Read joystick Y sensor value
+ *
+ * @param hadcJoyY input value from potentiomiter
+ */
 bool joystick_sensor_pressed(void) {
     if (HAL_ADC_GetValue(&hadcJoyY) < 100 ||
         HAL_ADC_GetValue(&hadcJoyY) > 1000) {
@@ -34,6 +50,10 @@ bool joystick_sensor_pressed(void) {
     }
 }
 
+/**
+ * @brief Read touch sensor value
+ *
+ */
 bool touch_sensor_pressed(void) {
     if (HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_6)) {
         return true;
@@ -42,7 +62,12 @@ bool touch_sensor_pressed(void) {
     }
 }
 
-// Photo Resistor
+/**
+ * @brief Initialise photo resistor 
+ *
+ * @param sConfig system config for photo resistor
+ * @param hadcPhoto photo resistor profile
+ */
 void MX_ADC_Init_Photo(void) {
     ADC_ChannelConfTypeDef sConfig;
 
@@ -71,6 +96,11 @@ void MX_ADC_Init_Photo(void) {
     HAL_ADC_PollForConversion(&hadcPhoto, HAL_MAX_DELAY);
 }
 
+/**
+ * @brief Initialise photo resistor pin 
+ *
+ * @param GPIO_InitStruct_Photo system config for photo resistor pin
+ */
 GPIO_InitTypeDef GPIO_InitStruct_Photo;
 void MX_GPIO_Init_Photo(void) {
     __HAL_RCC_GPIOA_CLK_ENABLE();
@@ -81,7 +111,12 @@ void MX_GPIO_Init_Photo(void) {
     HAL_GPIO_Init(GPIOA, &GPIO_InitStruct_Photo); // #select GPIO Group
 }
 
-// Joystick Y
+/**
+ * @brief Initialise joystick
+ *
+ * @param sConfigJoyY system config for joystick
+ * @param hadcJoyY joystick profile
+ */
 void MX_ADC_Init_JoyY(void) {
     ADC_ChannelConfTypeDef sConfigJoyY;
 
@@ -111,6 +146,11 @@ void MX_ADC_Init_JoyY(void) {
     HAL_ADC_PollForConversion(&hadcJoyY, HAL_MAX_DELAY);
 }
 
+/**
+ * @brief Initialise JoystickY pin 
+ *
+ * @param GPIO_InitStruct_JoyY system config for joystickY pin
+ */
 GPIO_InitTypeDef GPIO_InitStructJoyY;
 void MX_GPIO_Init_JoyY(void) {
     __HAL_RCC_GPIOF_CLK_ENABLE();
@@ -121,6 +161,11 @@ void MX_GPIO_Init_JoyY(void) {
     HAL_GPIO_Init(GPIOF, &GPIO_InitStructJoyY); // #select GPIO Group
 }
 
+/**
+ * @brief Call all setup functions and initialise digital pins
+ *
+ * @param gpio system config for button pin
+ */
 void SensorInit(void) {
     // general
     GPIO_InitTypeDef gpio;
