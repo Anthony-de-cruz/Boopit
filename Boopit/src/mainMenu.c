@@ -11,25 +11,35 @@
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
+/** @file */
+
 static Button play_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
-                      (int)(SCREEN_HEIGHT * 0.50) - (50 / 2),
-                      100,
-                      50,
-                      "Play",
-                      &GLCD_Font_16x24,
-                      0,
-                      0};
+                             (int)(SCREEN_HEIGHT * 0.50) - (50 / 2),
+                             100,
+                             50,
+                             "Play",
+                             &GLCD_Font_16x24,
+                             0,
+                             0};
 
 static Button difficulty_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
-                            (int)(SCREEN_HEIGHT * 0.50) - (50 / 2) + 70,
-                            280,
-                            50,
-                            "Change Difficulty",
-                            &GLCD_Font_16x24,
-                            150,
-                            0};
+                                   (int)(SCREEN_HEIGHT * 0.50) - (50 / 2) + 70,
+                                   280,
+                                   50,
+                                   "Change Difficulty",
+                                   &GLCD_Font_16x24,
+                                   150,
+                                   0};
 
-static void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
+/**
+ * @brief Handle the touch screen inputs for the main menu buttons.
+ * 
+ * @param tsc_state The touch screen state
+ * @param userData The user data to manipulate according to the user actions
+ * @param inMenu Control the flow of the main menu
+ */
+static void handle_input(TOUCH_STATE *tsc_state, UserData *userData,
+                         bool *inMenu) {
 
     Touch_GetState(tsc_state);
     if (!tsc_state->pressed) {
@@ -51,6 +61,11 @@ static void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMen
     }
 }
 
+/**
+ * @brief Draw the main menu to the screen.
+ *
+ * @param difficulty The current difficulty
+ */
 static void draw_main_menu(Difficulty *difficulty) {
 
     char *title = "BOOPIT!";

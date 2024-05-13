@@ -1,5 +1,7 @@
 #include "userData.h"
 
+/** @file */
+
 void handle_difficulty(UserData *userData) {
 
     switch (userData->difficulty) {
