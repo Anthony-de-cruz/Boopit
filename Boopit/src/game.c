@@ -17,6 +17,7 @@ extern ADC_HandleTypeDef hadcPhoto;
 extern ADC_HandleTypeDef hadcJoyY;
 
 static int last_pressed;
+static int previous_task = 0;
 
 static void draw_game_screen(int timeRemaining, int task, int score,
                              int lives) {
@@ -37,10 +38,10 @@ static void draw_game_screen(int timeRemaining, int task, int score,
     GLCD_DrawString(100, 200, taskBuffer);
 
     sprintf(scoreBuffer, "Score: %i   ", score);
-    GLCD_DrawString(100, 150, scoreBuffer);
+    GLCD_DrawString(75, 150, scoreBuffer);
 
     sprintf(livesBuffer, "Lives: %i   ", lives);
-    GLCD_DrawString(200, 150, livesBuffer);
+    GLCD_DrawString(225, 150, livesBuffer);
 
     debug_print();
 }
@@ -48,20 +49,26 @@ static void draw_game_screen(int timeRemaining, int task, int score,
 void play_game(UserData *userData) {
     int startTime = 0, timeCurrent = 0, timeLimit = 0;
     int endTime;
-    Task task = TOUCH;
+    Task task = previous_task;
 
     TOUCH_STATE tsc_state;
 
     bool taskCompleted = false;
 
     // Game settings
-    srand(HAL_GetTick());
-    task = (Task)rand() % 5;
+    while (previous_task == task) {
+        srand(HAL_GetTick());
+        task = (Task)rand() % 5;
+    }
+
+    previous_task = task;
+
+    // task = 3;
     timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
 
-    int input_delay = 100;
+    int input_delay = 0;
 
     while (timeCurrent < endTime) {
 
@@ -114,7 +121,8 @@ void play_game(UserData *userData) {
 
     userData->lives--;
 
-    if (userData->lives < 0) {
+    if (userData->lives < 1) {
         userData->nextScene = END;
     }
 }
+ 

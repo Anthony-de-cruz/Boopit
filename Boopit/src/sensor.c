@@ -11,7 +11,7 @@ ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;
 
 bool photo_sensor_pressed(void) {
-    if (HAL_ADC_GetValue(&hadcPhoto) > 1000) {
+    if (HAL_ADC_GetValue(&hadcPhoto) > 900) {
         return true;
     } else {
         return false;
@@ -25,8 +25,8 @@ bool button_sensor_pressed(void) {
     }
 }
 bool joystick_sensor_pressed(void) {
-    if (HAL_ADC_GetValue(&hadcJoyY) < 400 ||
-        HAL_ADC_GetValue(&hadcJoyY) > 800) {
+    if (HAL_ADC_GetValue(&hadcJoyY) < 100 ||
+        HAL_ADC_GetValue(&hadcJoyY) > 1000) {
         return true;
     } else {
         return false;
