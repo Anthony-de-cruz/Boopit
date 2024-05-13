@@ -9,13 +9,13 @@ project:
         - file: src/game.c
         - file: src/mainMenu.c
         - file: src/endScreen.c
-        - file: include/endScreen.h
-        - file: include/display.h
-        - file: include/game.h
-        - file: include/userData.h
-        - file: include/mainMenu.h
-        - file: include/sensor.h
-        - file: src\userData.c
+        - file: src/userData.c
+        - file: src/include/endScreen.h
+        - file: src/include/display.h
+        - file: src/include/game.h
+        - file: src/include/userData.h
+        - file: src/include/mainMenu.h
+        - file: src/include/sensor.h
 
   packs:
     - pack: Keil::STM32F7xx_DFP
