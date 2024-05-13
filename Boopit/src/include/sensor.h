@@ -37,27 +37,27 @@ bool button_sensor_pressed(void);
 bool joystick_sensor_pressed(void);
 
 /**
- * @brief 
+ * @brief Initialise the photo resistor profile
  */
 void MX_ADC_Init_Photo(void);
 
 /**
- * @brief 
+ * @brief Initialise the joystickY profile
  */
 void MX_ADC_Init_JoyY(void);
 
 /**
- * @brief 
+ * @brief Initialise the photo resistor pin
  */
 void MX_GPIO_Init_Photo(void);
 
 /**
- * @brief 
+ * @brief Initialise the joystickY pin
  */
 void MX_GPIO_Init_JoyY(void);
 
 /**
- * @brief 
+ * @brief Call all other initialisation functions and initialise digital pins
  */
 void SensorInit(void);
 
