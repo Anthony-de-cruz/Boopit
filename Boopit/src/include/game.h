@@ -12,7 +12,7 @@ typedef enum Task { TOUCH, PHOTO, BUTTON, JOYSTICK, DISPLAY } Task;
 /**
  * @brief Array of strings that represent their corrosponding tasks.
  */
-char *TASK_NAMES[] = {"Touch it!", "Hide it!", "Press it!", "Spin it!",
+static char *TASK_NAMES[] = {"Touch it!", "Hide it!", "Press it!", "Spin it!",
                       "Boop it!"};
 
 /**
