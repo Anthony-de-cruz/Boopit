@@ -4,8 +4,9 @@
 #include "stm32f7xx_hal.h"
 #include "stm32f7xx_hal_gpio.h"
 
-
 #include "sensor.h"
+
+/** @file */
 
 ADC_HandleTypeDef hadcPhoto;
 ADC_HandleTypeDef hadcJoyY;
