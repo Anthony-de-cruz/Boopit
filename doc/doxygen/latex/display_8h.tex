@@ -1,0 +1,208 @@
+\doxysection{Boopit/src/include/display.h File Reference}
+\hypertarget{display_8h}{}\label{display_8h}\index{Boopit/src/include/display.h@{Boopit/src/include/display.h}}
+{\ttfamily \#include $<$stdbool.\+h$>$}\newline
+{\ttfamily \#include "{}Board\+\_\+\+GLCD.\+h"{}}\newline
+{\ttfamily \#include "{}Board\+\_\+\+Touch.\+h"{}}\newline
+\doxysubsubsection*{Data Structures}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct_button}{Button}}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{display_8h_a2cd109632a6dcccaa80b43561b1ab700}{SCREEN\+\_\+\+WIDTH}}~480
+\item 
+\#define \mbox{\hyperlink{display_8h_a6974d08a74da681b3957b2fead2608b8}{SCREEN\+\_\+\+HEIGHT}}~272
+\item 
+\#define \mbox{\hyperlink{display_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}{DEBUG\+\_\+\+MODE}}~true
+\begin{DoxyCompactList}\small\item\em This macro sets the debug mode. \end{DoxyCompactList}\item 
+\#define \mbox{\hyperlink{display_8h_ae62ff9427e273ff6b4e56bf2c29af019}{DEBUG\+\_\+\+BUFFER\+\_\+\+SIZE}}~256
+\item 
+\#define \mbox{\hyperlink{display_8h_a7d5f320221dddb72c3566204ccff8f70}{DEBUG\+\_\+\+BUFFER\+\_\+\+COUNT}}~6
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{display_8h_aabbec029df4131b530b45fc227cfddcc}\label{display_8h_aabbec029df4131b530b45fc227cfddcc} 
+typedef struct Button {\bfseries Button}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{display_8h_a70af21c671abfcc773614a9a4f63d920}{System\+Clock\+\_\+\+Config}} (void)
+\item 
+void \mbox{\hyperlink{display_8h_a4cdbdfc36c314afb59655c3937ecce96}{init\+\_\+display}} (void)
+\item 
+void \mbox{\hyperlink{display_8h_a1e7a5415ffe04d881bbc4a2d55ab71c6}{debug\+\_\+print}} (void)
+\begin{DoxyCompactList}\small\item\em Print out the contents of all the debug buffers onto the screen. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{display_8h_a68075fa7accdb1c12449fcc97bb4eb17}{debug\+\_\+clear}} (unsigned int buffer)
+\item 
+void \mbox{\hyperlink{display_8h_aeefb0b85fd68bda9f2f096007cad7e0f}{debug\+\_\+clear\+\_\+all}} (void)
+\item 
+void \mbox{\hyperlink{display_8h_a8cffe5189a594e49e7510d739e186fa0}{draw\+\_\+button}} (\mbox{\hyperlink{struct_button}{Button}} \texorpdfstring{$\ast$}{*}button)
+\item 
+bool \mbox{\hyperlink{display_8h_a55fdd773b7343e49476546b288dda85c}{check\+\_\+button\+\_\+press}} (\mbox{\hyperlink{struct_button}{Button}} \texorpdfstring{$\ast$}{*}button, TOUCH\+\_\+\+STATE \texorpdfstring{$\ast$}{*}tsc\+\_\+state)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{display_8h_a2c73a02743dc1f21a1f51848fa83f411}{debug\+\_\+buffers}} \mbox{[}DEBUG\+\_\+\+BUFFER\+\_\+\+COUNT\mbox{]}\mbox{[}DEBUG\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\Hypertarget{display_8h_a7d5f320221dddb72c3566204ccff8f70}\label{display_8h_a7d5f320221dddb72c3566204ccff8f70} 
+\index{display.h@{display.h}!DEBUG\_BUFFER\_COUNT@{DEBUG\_BUFFER\_COUNT}}
+\index{DEBUG\_BUFFER\_COUNT@{DEBUG\_BUFFER\_COUNT}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_BUFFER\_COUNT}{DEBUG\_BUFFER\_COUNT}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+BUFFER\+\_\+\+COUNT~6}
+
+
+
+Definition at line \mbox{\hyperlink{display_8h_source_l00030}{30}} of file \mbox{\hyperlink{display_8h_source}{display.\+h}}.
+
+\Hypertarget{display_8h_ae62ff9427e273ff6b4e56bf2c29af019}\label{display_8h_ae62ff9427e273ff6b4e56bf2c29af019} 
+\index{display.h@{display.h}!DEBUG\_BUFFER\_SIZE@{DEBUG\_BUFFER\_SIZE}}
+\index{DEBUG\_BUFFER\_SIZE@{DEBUG\_BUFFER\_SIZE}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_BUFFER\_SIZE}{DEBUG\_BUFFER\_SIZE}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+BUFFER\+\_\+\+SIZE~256}
+
+
+
+Definition at line \mbox{\hyperlink{display_8h_source_l00029}{29}} of file \mbox{\hyperlink{display_8h_source}{display.\+h}}.
+
+\Hypertarget{display_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}\label{display_8h_ac80a3592e72fd96b772ee47a7d8e0d0a} 
+\index{display.h@{display.h}!DEBUG\_MODE@{DEBUG\_MODE}}
+\index{DEBUG\_MODE@{DEBUG\_MODE}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{DEBUG\_MODE}{DEBUG\_MODE}}
+{\footnotesize\ttfamily \#define DEBUG\+\_\+\+MODE~true}
+
+
+
+This macro sets the debug mode. 
+
+
+
+Definition at line \mbox{\hyperlink{display_8h_source_l00027}{27}} of file \mbox{\hyperlink{display_8h_source}{display.\+h}}.
+
+\Hypertarget{display_8h_a6974d08a74da681b3957b2fead2608b8}\label{display_8h_a6974d08a74da681b3957b2fead2608b8} 
+\index{display.h@{display.h}!SCREEN\_HEIGHT@{SCREEN\_HEIGHT}}
+\index{SCREEN\_HEIGHT@{SCREEN\_HEIGHT}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_HEIGHT}{SCREEN\_HEIGHT}}
+{\footnotesize\ttfamily \#define SCREEN\+\_\+\+HEIGHT~272}
+
+
+
+Definition at line \mbox{\hyperlink{display_8h_source_l00013}{13}} of file \mbox{\hyperlink{display_8h_source}{display.\+h}}.
+
+\Hypertarget{display_8h_a2cd109632a6dcccaa80b43561b1ab700}\label{display_8h_a2cd109632a6dcccaa80b43561b1ab700} 
+\index{display.h@{display.h}!SCREEN\_WIDTH@{SCREEN\_WIDTH}}
+\index{SCREEN\_WIDTH@{SCREEN\_WIDTH}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{SCREEN\_WIDTH}{SCREEN\_WIDTH}}
+{\footnotesize\ttfamily \#define SCREEN\+\_\+\+WIDTH~480}
+
+
+
+Definition at line \mbox{\hyperlink{display_8h_source_l00012}{12}} of file \mbox{\hyperlink{display_8h_source}{display.\+h}}.
+
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{display_8h_a55fdd773b7343e49476546b288dda85c}\label{display_8h_a55fdd773b7343e49476546b288dda85c} 
+\index{display.h@{display.h}!check\_button\_press@{check\_button\_press}}
+\index{check\_button\_press@{check\_button\_press}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{check\_button\_press()}{check\_button\_press()}}
+{\footnotesize\ttfamily bool check\+\_\+button\+\_\+press (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_button}{Button}} \texorpdfstring{$\ast$}{*}}]{button,  }\item[{TOUCH\+\_\+\+STATE \texorpdfstring{$\ast$}{*}}]{tsc\+\_\+state }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00091}{91}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_a68075fa7accdb1c12449fcc97bb4eb17}\label{display_8h_a68075fa7accdb1c12449fcc97bb4eb17} 
+\index{display.h@{display.h}!debug\_clear@{debug\_clear}}
+\index{debug\_clear@{debug\_clear}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{debug\_clear()}{debug\_clear()}}
+{\footnotesize\ttfamily void debug\+\_\+clear (\begin{DoxyParamCaption}\item[{unsigned int}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00070}{70}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_aeefb0b85fd68bda9f2f096007cad7e0f}\label{display_8h_aeefb0b85fd68bda9f2f096007cad7e0f} 
+\index{display.h@{display.h}!debug\_clear\_all@{debug\_clear\_all}}
+\index{debug\_clear\_all@{debug\_clear\_all}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{debug\_clear\_all()}{debug\_clear\_all()}}
+{\footnotesize\ttfamily void debug\+\_\+clear\+\_\+all (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00074}{74}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_a1e7a5415ffe04d881bbc4a2d55ab71c6}\label{display_8h_a1e7a5415ffe04d881bbc4a2d55ab71c6} 
+\index{display.h@{display.h}!debug\_print@{debug\_print}}
+\index{debug\_print@{debug\_print}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{debug\_print()}{debug\_print()}}
+{\footnotesize\ttfamily void debug\+\_\+print (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Print out the contents of all the debug buffers onto the screen. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em None} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em None} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00059}{59}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_a8cffe5189a594e49e7510d739e186fa0}\label{display_8h_a8cffe5189a594e49e7510d739e186fa0} 
+\index{display.h@{display.h}!draw\_button@{draw\_button}}
+\index{draw\_button@{draw\_button}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{draw\_button()}{draw\_button()}}
+{\footnotesize\ttfamily void draw\+\_\+button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct_button}{Button}} \texorpdfstring{$\ast$}{*}}]{button }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00080}{80}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_a4cdbdfc36c314afb59655c3937ecce96}\label{display_8h_a4cdbdfc36c314afb59655c3937ecce96} 
+\index{display.h@{display.h}!init\_display@{init\_display}}
+\index{init\_display@{init\_display}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{init\_display()}{init\_display()}}
+{\footnotesize\ttfamily void init\+\_\+display (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00046}{46}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+\Hypertarget{display_8h_a70af21c671abfcc773614a9a4f63d920}\label{display_8h_a70af21c671abfcc773614a9a4f63d920} 
+\index{display.h@{display.h}!SystemClock\_Config@{SystemClock\_Config}}
+\index{SystemClock\_Config@{SystemClock\_Config}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{SystemClock\_Config()}{SystemClock\_Config()}}
+{\footnotesize\ttfamily void System\+Clock\+\_\+\+Config (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+System Clock Configuration 
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00015}{15}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{display_8h_a2c73a02743dc1f21a1f51848fa83f411}\label{display_8h_a2c73a02743dc1f21a1f51848fa83f411} 
+\index{display.h@{display.h}!debug\_buffers@{debug\_buffers}}
+\index{debug\_buffers@{debug\_buffers}!display.h@{display.h}}
+\doxysubsubsection{\texorpdfstring{debug\_buffers}{debug\_buffers}}
+{\footnotesize\ttfamily char debug\+\_\+buffers\mbox{[}DEBUG\+\_\+\+BUFFER\+\_\+\+COUNT\mbox{]}\mbox{[}DEBUG\+\_\+\+BUFFER\+\_\+\+SIZE\mbox{]}\hspace{0.3cm}{\ttfamily [extern]}}
+
+
+
+Definition at line \mbox{\hyperlink{display_8c_source_l00057}{57}} of file \mbox{\hyperlink{display_8c_source}{display.\+c}}.
+

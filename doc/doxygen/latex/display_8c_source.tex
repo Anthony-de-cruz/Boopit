@@ -1,0 +1,106 @@
+\doxysection{display.\+c}
+\hypertarget{display_8c_source}{}\label{display_8c_source}\index{Boopit/src/display.c@{Boopit/src/display.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}Board\_Touch.h"{}}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}GLCD\_Config.h"{}}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{display_8h}{display.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00009}00009\ \textcolor{keyword}{extern}\ GLCD\_FONT\ GLCD\_Font\_6x8;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00010}00010\ \textcolor{keyword}{extern}\ GLCD\_FONT\ GLCD\_Font\_16x24;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00015}\mbox{\hyperlink{display_8h_a70af21c671abfcc773614a9a4f63d920}{00015}}\ \textcolor{keywordtype}{void}\ SystemClock\_Config(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00016}00016\ \ \ \ \ RCC\_OscInitTypeDef\ RCC\_OscInitStruct;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00017}00017\ \ \ \ \ RCC\_ClkInitTypeDef\ RCC\_ClkInitStruct;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00018}00018\ \ \ \ \ \textcolor{comment}{/*\ Enable\ Power\ Control\ clock\ */}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00019}00019\ \ \ \ \ \_\_HAL\_RCC\_PWR\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00020}00020\ \ \ \ \ \textcolor{comment}{/*\ The\ voltage\ scaling\ allows\ optimizing\ the\ power}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00021}00021\ \textcolor{comment}{\ \ \ \ consumption\ when\ the\ device\ is\ clocked\ below\ the}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00022}00022\ \textcolor{comment}{\ \ \ \ maximum\ system\ frequency.\ */}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00023}00023\ \ \ \ \ \_\_HAL\_PWR\_VOLTAGESCALING\_CONFIG(PWR\_REGULATOR\_VOLTAGE\_SCALE1);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00024}00024\ \ \ \ \ \textcolor{comment}{/*\ Enable\ HSE\ Oscillator\ and\ activate\ PLL}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00025}00025\ \textcolor{comment}{\ \ \ \ with\ HSE\ as\ source\ */}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00026}00026\ \ \ \ \ RCC\_OscInitStruct.OscillatorType\ =\ RCC\_OSCILLATORTYPE\_HSE;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00027}00027\ \ \ \ \ RCC\_OscInitStruct.HSEState\ =\ RCC\_HSE\_ON;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00028}00028\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLState\ =\ RCC\_PLL\_ON;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00029}00029\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLSource\ =\ RCC\_PLLSOURCE\_HSE;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00030}00030\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLM\ =\ 25;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00031}00031\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLN\ =\ 336;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00032}00032\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLP\ =\ RCC\_PLLP\_DIV2;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00033}00033\ \ \ \ \ RCC\_OscInitStruct.PLL.PLLQ\ =\ 7;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00034}00034\ \ \ \ \ HAL\_RCC\_OscConfig(\&RCC\_OscInitStruct);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00035}00035\ \ \ \ \ \textcolor{comment}{/*\ Select\ PLL\ as\ system\ clock\ source\ and\ configure}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00036}00036\ \textcolor{comment}{\ \ \ \ the\ HCLK,\ PCLK1\ and\ PCLK2\ clocks\ dividers\ */}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00037}00037\ \ \ \ \ RCC\_ClkInitStruct.ClockType\ =}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ RCC\_CLOCKTYPE\_SYSCLK\ |\ RCC\_CLOCKTYPE\_PCLK1\ |\ RCC\_CLOCKTYPE\_PCLK2;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00039}00039\ \ \ \ \ RCC\_ClkInitStruct.SYSCLKSource\ =\ RCC\_SYSCLKSOURCE\_PLLCLK;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00040}00040\ \ \ \ \ RCC\_ClkInitStruct.AHBCLKDivider\ =\ RCC\_SYSCLK\_DIV1;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00041}00041\ \ \ \ \ RCC\_ClkInitStruct.APB1CLKDivider\ =\ RCC\_HCLK\_DIV4;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00042}00042\ \ \ \ \ RCC\_ClkInitStruct.APB2CLKDivider\ =\ RCC\_HCLK\_DIV2;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00043}00043\ \ \ \ \ HAL\_RCC\_ClockConfig(\&RCC\_ClkInitStruct,\ FLASH\_LATENCY\_5);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00044}00044\ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00046}00046\ \textcolor{keywordtype}{void}\ init\_display(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00047}00047\ \ \ \ \ SystemClock\_Config();\ \textcolor{comment}{//\ Config\ Clocks}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00048}00048\ \ \ \ \ Touch\_Initialize();\ \ \ \textcolor{comment}{//\ Init\ Touchscreen}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00049}00049\ \ \ \ \ GLCD\_Initialize();\ \ \ \ \textcolor{comment}{//\ Init\ GLCD}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00050}00050\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00051}00051\ \ \ \ \ GLCD\_ClearScreen();}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00052}00052\ \ \ \ \ GLCD\_SetFont(\&GLCD\_Font\_16x24);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00053}00053\ \ \ \ \ GLCD\_SetBackgroundColor(GLCD\_COLOR\_WHITE);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00054}00054\ \ \ \ \ GLCD\_SetForegroundColor(GLCD\_COLOR\_BLACK);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00055}00055\ \};}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00056}00056\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00057}00057\ \textcolor{keywordtype}{char}\ debug\_buffers[DEBUG\_BUFFER\_COUNT][DEBUG\_BUFFER\_SIZE];}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00058}00058\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00059}\mbox{\hyperlink{display_8h_a1e7a5415ffe04d881bbc4a2d55ab71c6}{00059}}\ \textcolor{keywordtype}{void}\ debug\_print(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordtype}{int}\ buffer;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00061}00061\ \ \ \ \ \textcolor{keywordflow}{if}\ (!\mbox{\hyperlink{display_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}{DEBUG\_MODE}})\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00063}00063\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00064}00064\ \ \ \ \ GLCD\_SetFont(\&GLCD\_Font\_6x8);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00065}00065\ \ \ \ \ \textcolor{keywordflow}{for}\ (buffer\ =\ 0;\ buffer\ <\ DEBUG\_BUFFER\_COUNT;\ buffer++)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ GLCD\_DrawString(6,\ 8\ +\ (8\ +\ 1)\ *\ buffer,\ debug\_buffers[buffer]);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00067}00067\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00068}00068\ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00069}00069\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00070}00070\ \textcolor{keywordtype}{void}\ debug\_clear(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buffer)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00071}00071\ \ \ \ \ memset(debug\_buffers[buffer],\ 0,\ DEBUG\_BUFFER\_SIZE);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00072}00072\ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00073}00073\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00074}00074\ \textcolor{keywordtype}{void}\ debug\_clear\_all(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00075}00075\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ buffer\ =\ 0;\ buffer\ <\ DEBUG\_BUFFER\_COUNT;\ buffer++)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ debug\_clear(buffer);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00078}00078\ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00079}00079\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00080}00080\ \textcolor{keywordtype}{void}\ draw\_button(\mbox{\hyperlink{struct_button}{Button}}\ *button)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{int}\ text\_width\ =\ button-\/>font-\/>width\ *\ strlen(button-\/>text);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordtype}{int}\ text\_height\ =\ button-\/>font-\/>height;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00083}00083\ \ \ \ \ GLCD\_DrawRectangle(button-\/>x,\ button-\/>y,\ button-\/>width,\ button-\/>height);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00084}00084\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00085}00085\ \ \ \ \ GLCD\_SetFont(button-\/>font);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00086}00086\ \ \ \ \ GLCD\_DrawString((\textcolor{keywordtype}{int})(button-\/>x\ +\ button-\/>width\ /\ 2)\ -\/\ text\_width\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00087}00087\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keywordtype}{int})(button-\/>y\ +\ button-\/>height\ /\ 2)\ -\/\ text\_height\ /\ 2,}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00088}00088\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>text);}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00089}00089\ \};}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00091}00091\ \textcolor{keywordtype}{bool}\ check\_button\_press(\mbox{\hyperlink{struct_button}{Button}}\ *button,\ TOUCH\_STATE\ *tsc\_state)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00092}00092\ \ \ \ \ \textcolor{keywordflow}{if}\ (tsc\_state-\/>x\ >\ button-\/>x\ \&\&\ tsc\_state-\/>x\ <\ button-\/>x\ +\ button-\/>width\ \&\&}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00093}00093\ \ \ \ \ \ \ \ \ tsc\_state-\/>y\ >\ button-\/>y\ \&\&\ tsc\_state-\/>y\ <\ button-\/>y\ +\ button-\/>height)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00094}00094\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ currentTime\ =\ HAL\_GetTick();}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00097}00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (button-\/>time\_pressed\ +\ button-\/>input\_delay\ <\ currentTime)\ \{}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00098}00098\ \ \ \ \ \ \ \ \ \ \ \ \ button-\/>time\_pressed\ =\ currentTime;}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00100}00100\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00101}00101\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00102}00102\ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{display_8c_source_l00103}00103\ \};}
+
+\end{DoxyCode}

@@ -1,0 +1,137 @@
+\begin{theindex}
+
+  \item {baseTime}
+    \subitem {UserData}, \hyperpage{7}
+  \item {Boopit/src/display.c}, \hyperpage{9}
+  \item {Boopit/src/endScreen.c}, \hyperpage{10}
+  \item {Boopit/src/game.c}, \hyperpage{11}
+  \item {Boopit/src/include/display.h}, \hyperpage{13}, \hyperpage{16}
+  \item {Boopit/src/include/endScreen.h}, \hyperpage{17}
+  \item {Boopit/src/include/game.h}, \hyperpage{17}
+  \item {Boopit/src/include/mainMenu.h}, \hyperpage{17}
+  \item {Boopit/src/include/sensor.h}, \hyperpage{17}
+  \item {Boopit/src/include/userData.h}, \hyperpage{17}
+  \item {Boopit/src/main.c}, \hyperpage{18}
+  \item {Boopit/src/mainMenu.c}, \hyperpage{18}
+  \item {Boopit/src/sensor.c}, \hyperpage{19}
+  \item {Boopit/src/userData.c}, \hyperpage{21}
+  \item {Button}, \hyperpage{5}
+    \subitem {font}, \hyperpage{5}
+    \subitem {height}, \hyperpage{5}
+    \subitem {input\_delay}, \hyperpage{5}
+    \subitem {text}, \hyperpage{6}
+    \subitem {time\_pressed}, \hyperpage{6}
+    \subitem {width}, \hyperpage{6}
+    \subitem {x}, \hyperpage{6}
+    \subitem {y}, \hyperpage{6}
+
+  \indexspace
+
+  \item {check\_button\_press}
+    \subitem {display.h}, \hyperpage{14}
+
+  \indexspace
+
+  \item {DEBUG\_BUFFER\_COUNT}
+    \subitem {display.h}, \hyperpage{14}
+  \item {DEBUG\_BUFFER\_SIZE}
+    \subitem {display.h}, \hyperpage{14}
+  \item {debug\_buffers}
+    \subitem {display.h}, \hyperpage{16}
+  \item {debug\_clear}
+    \subitem {display.h}, \hyperpage{14}
+  \item {debug\_clear\_all}
+    \subitem {display.h}, \hyperpage{15}
+  \item {DEBUG\_MODE}
+    \subitem {display.h}, \hyperpage{14}
+  \item {debug\_print}
+    \subitem {display.h}, \hyperpage{15}
+  \item {difficulty}
+    \subitem {UserData}, \hyperpage{7}
+  \item {display.h}
+    \subitem {check\_button\_press}, \hyperpage{14}
+    \subitem {DEBUG\_BUFFER\_COUNT}, \hyperpage{14}
+    \subitem {DEBUG\_BUFFER\_SIZE}, \hyperpage{14}
+    \subitem {debug\_buffers}, \hyperpage{16}
+    \subitem {debug\_clear}, \hyperpage{14}
+    \subitem {debug\_clear\_all}, \hyperpage{15}
+    \subitem {DEBUG\_MODE}, \hyperpage{14}
+    \subitem {debug\_print}, \hyperpage{15}
+    \subitem {draw\_button}, \hyperpage{15}
+    \subitem {init\_display}, \hyperpage{15}
+    \subitem {SCREEN\_HEIGHT}, \hyperpage{14}
+    \subitem {SCREEN\_WIDTH}, \hyperpage{14}
+    \subitem {SystemClock\_Config}, \hyperpage{15}
+  \item {draw\_button}
+    \subitem {display.h}, \hyperpage{15}
+
+  \indexspace
+
+  \item {font}
+    \subitem {Button}, \hyperpage{5}
+
+  \indexspace
+
+  \item {height}
+    \subitem {Button}, \hyperpage{5}
+
+  \indexspace
+
+  \item {init\_display}
+    \subitem {display.h}, \hyperpage{15}
+  \item {input\_delay}
+    \subitem {Button}, \hyperpage{5}
+
+  \indexspace
+
+  \item {lives}
+    \subitem {UserData}, \hyperpage{7}
+
+  \indexspace
+
+  \item {nextScene}
+    \subitem {UserData}, \hyperpage{7}
+
+  \indexspace
+
+  \item {score}
+    \subitem {UserData}, \hyperpage{7}
+  \item {SCREEN\_HEIGHT}
+    \subitem {display.h}, \hyperpage{14}
+  \item {SCREEN\_WIDTH}
+    \subitem {display.h}, \hyperpage{14}
+  \item {SystemClock\_Config}
+    \subitem {display.h}, \hyperpage{15}
+
+  \indexspace
+
+  \item {text}
+    \subitem {Button}, \hyperpage{6}
+  \item {time\_pressed}
+    \subitem {Button}, \hyperpage{6}
+
+  \indexspace
+
+  \item {UserData}, \hyperpage{6}
+    \subitem {baseTime}, \hyperpage{7}
+    \subitem {difficulty}, \hyperpage{7}
+    \subitem {lives}, \hyperpage{7}
+    \subitem {nextScene}, \hyperpage{7}
+    \subitem {score}, \hyperpage{7}
+
+  \indexspace
+
+  \item {width}
+    \subitem {Button}, \hyperpage{6}
+
+  \indexspace
+
+  \item {x}
+    \subitem {Button}, \hyperpage{6}
+
+  \indexspace
+
+  \item {y}
+    \subitem {Button}, \hyperpage{6}
+
+\end{theindex}

@@ -1,0 +1,55 @@
+\doxysection{display.\+h}
+\hypertarget{display_8h_source}{}\label{display_8h_source}\index{Boopit/src/include/display.h@{Boopit/src/include/display.h}}
+\mbox{\hyperlink{display_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ \_\_DISPLAY}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}Board\_GLCD.h"{}}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}Board\_Touch.h"{}}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ \_\_DISPLAY}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00010}00010\ \textcolor{comment}{//\ Constants}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00012}00012\ \textcolor{preprocessor}{\#define\ SCREEN\_WIDTH\ 480}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00013}00013\ \textcolor{preprocessor}{\#define\ SCREEN\_HEIGHT\ 272}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00014}00014\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00015}00015\ \textcolor{comment}{//\ System\ Config}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00016}00016\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00017}00017\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{display_8h_a70af21c671abfcc773614a9a4f63d920}{SystemClock\_Config}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00019}00019\ \textcolor{keywordtype}{void}\ init\_display(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00020}00020\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00021}00021\ \textcolor{comment}{//\ Debug}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00027}\mbox{\hyperlink{display_8h_ac80a3592e72fd96b772ee47a7d8e0d0a}{00027}}\ \textcolor{preprocessor}{\#define\ DEBUG\_MODE\ true}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00029}00029\ \textcolor{preprocessor}{\#define\ DEBUG\_BUFFER\_SIZE\ 256}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00030}00030\ \textcolor{preprocessor}{\#define\ DEBUG\_BUFFER\_COUNT\ 6}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00032}00032\ \textcolor{keyword}{extern}\ \textcolor{keywordtype}{char}\ debug\_buffers[DEBUG\_BUFFER\_COUNT][DEBUG\_BUFFER\_SIZE];}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00039}00039\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{display_8h_a1e7a5415ffe04d881bbc4a2d55ab71c6}{debug\_print}}(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00040}00040\ \textcolor{keywordtype}{void}\ debug\_clear(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}\ buffer);}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00041}00041\ \textcolor{keywordtype}{void}\ debug\_clear\_all(\textcolor{keywordtype}{void});}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00043}00043\ \textcolor{comment}{//\ Widgets}}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00044}00044\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00045}\mbox{\hyperlink{struct_button}{00045}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_button}{Button}}\ \{}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00046}00046\ \ \ \ \ \textcolor{keywordtype}{int}\ x;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00047}00047\ \ \ \ \ \textcolor{keywordtype}{int}\ y;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{int}\ width;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{int}\ height;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{char}\ *text;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00051}00051\ \ \ \ \ GLCD\_FONT\ *font;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00052}00052\ \ \ \ \ \textcolor{keywordtype}{int}\ input\_delay;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00053}00053\ \ \ \ \ \textcolor{keywordtype}{int}\ time\_pressed;}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00054}00054\ \}\ \mbox{\hyperlink{struct_button}{Button}};}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00055}00055\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00056}00056\ \textcolor{keywordtype}{void}\ draw\_button(\mbox{\hyperlink{struct_button}{Button}}\ *button);}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00057}00057\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00058}00058\ \textcolor{keywordtype}{bool}\ check\_button\_press(\mbox{\hyperlink{struct_button}{Button}}\ *button,\ TOUCH\_STATE\ *tsc\_state);}
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00059}00059\ }
+\DoxyCodeLine{\Hypertarget{display_8h_source_l00060}00060\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_\_DISPLAY\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}
