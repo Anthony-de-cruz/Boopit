@@ -1,0 +1,148 @@
+\doxysection{sensor.\+c}
+\hypertarget{sensor_8c_source}{}\label{sensor_8c_source}\index{Boopit/src/sensor.c@{Boopit/src/sensor.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00002}00002\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}Board\_LED.h"{}}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}stm32f7xx\_hal.h"{}}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ "{}stm32f7xx\_hal\_gpio.h"{}}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}sensor.h"{}}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00010}00010\ ADC\_HandleTypeDef\ hadcPhoto;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00011}00011\ ADC\_HandleTypeDef\ hadcJoyY;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00013}00013\ \textcolor{keywordtype}{bool}\ photo\_sensor\_pressed(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00014}00014\ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_ADC\_GetValue(\&hadcPhoto)\ >\ 900)\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00015}00015\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00016}00016\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00018}00018\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00019}00019\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00020}00020\ \textcolor{keywordtype}{bool}\ button\_sensor\_pressed(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00021}00021\ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_GPIO\_ReadPin(GPIOC,\ GPIO\_PIN\_7))\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00022}00022\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00023}00023\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00024}00024\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00025}00025\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00026}00026\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00027}00027\ \textcolor{keywordtype}{bool}\ joystick\_sensor\_pressed(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00028}00028\ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_ADC\_GetValue(\&hadcJoyY)\ <\ 100\ ||}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ HAL\_ADC\_GetValue(\&hadcJoyY)\ >\ 1000)\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00030}00030\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00031}00031\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00032}00032\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00033}00033\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00034}00034\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00035}00035\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00036}00036\ \textcolor{keywordtype}{bool}\ touch\_sensor\_pressed(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00037}00037\ \ \ \ \ \textcolor{keywordflow}{if}\ (HAL\_GPIO\_ReadPin(GPIOC,\ GPIO\_PIN\_6))\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00039}00039\ \ \ \ \ \}\ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{keyword}{false};}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00041}00041\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00042}00042\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00044}00044\ \textcolor{comment}{//\ Photo\ Resistor}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00045}00045\ \textcolor{keywordtype}{void}\ MX\_ADC\_Init\_Photo(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00046}00046\ \ \ \ \ ADC\_ChannelConfTypeDef\ sConfig;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00047}00047\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00048}00048\ \ \ \ \ \textcolor{comment}{//\ Enable\ ADC\ CLOCK}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00049}00049\ \ \ \ \ \textcolor{comment}{//\_\_HAL\_RCC\_ADC1\_CLK\_ENABLE();}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00050}00050\ \ \ \ \ \textcolor{comment}{//\_\_HAL\_RCC\_ADC2\_CLK\_ENABLE();}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00051}00051\ \ \ \ \ \_\_HAL\_RCC\_ADC3\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00052}00052\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00055}00055\ \ \ \ \ hadcPhoto.Instance\ =\ ADC3;\ \textcolor{comment}{//\ \#\ Select\ the\ ADC\ (ADC1,\ ADC2,\ ADC3)}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00056}00056\ \ \ \ \ hadcPhoto.Init.ClockPrescaler\ =\ ADC\_CLOCK\_SYNC\_PCLK\_DIV2;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00057}00057\ \ \ \ \ hadcPhoto.Init.Resolution\ =\ ADC\_RESOLUTION\_12B;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00058}00058\ \ \ \ \ hadcPhoto.Init.DataAlign\ =\ ADC\_DATAALIGN\_RIGHT;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00059}00059\ \ \ \ \ hadcPhoto.Init.NbrOfConversion\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00060}00060\ \ \ \ \ hadcPhoto.Init.ScanConvMode\ =\ ENABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00061}00061\ \ \ \ \ hadcPhoto.Init.ContinuousConvMode\ =\ ENABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00062}00062\ \ \ \ \ hadcPhoto.Init.DiscontinuousConvMode\ =\ DISABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00063}00063\ \ \ \ \ HAL\_ADC\_Init(\&hadcPhoto);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00064}00064\ \ \ \ \ \textcolor{comment}{//\ configure\ channal}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00065}00065\ \ \ \ \ sConfig.Rank\ =\ 1;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00066}00066\ \ \ \ \ sConfig.Channel\ =\ ADC\_CHANNEL\_0;\ \textcolor{comment}{//\ \#\ Select\ the\ ADC\ Channel\ (ADC\_CHANNEL\_X)}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00067}00067\ \ \ \ \ sConfig.SamplingTime\ =\ ADC\_SAMPLETIME\_28CYCLES;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00068}00068\ \ \ \ \ HAL\_ADC\_ConfigChannel(\&hadcPhoto,\ \&sConfig);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00069}00069\ \ \ \ \ HAL\_ADC\_Start(\&hadcPhoto);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00070}00070\ \ \ \ \ HAL\_ADC\_PollForConversion(\&hadcPhoto,\ HAL\_MAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00071}00071\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00073}00073\ GPIO\_InitTypeDef\ GPIO\_InitStruct\_Photo;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00074}00074\ \textcolor{keywordtype}{void}\ MX\_GPIO\_Init\_Photo(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00075}00075\ \ \ \ \ \_\_HAL\_RCC\_GPIOA\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00076}00076\ \ \ \ \ GPIO\_InitStruct\_Photo.Mode\ =}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ GPIO\_MODE\_ANALOG;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ configure\ to\ analog\ input\ mode}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00078}00078\ \ \ \ \ GPIO\_InitStruct\_Photo.Pin\ =\ GPIO\_PIN\_0;\ \textcolor{comment}{//\ \#select\ GPIO\ GPIO\_PIN\_X}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00079}00079\ \ \ \ \ GPIO\_InitStruct\_Photo.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00080}00080\ \ \ \ \ HAL\_GPIO\_Init(GPIOA,\ \&GPIO\_InitStruct\_Photo);\ \textcolor{comment}{//\ \#select\ GPIO\ Group}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00081}00081\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00082}00082\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00083}00083\ \textcolor{comment}{//\ Joystick\ Y}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00084}00084\ \textcolor{keywordtype}{void}\ MX\_ADC\_Init\_JoyY(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00085}00085\ \ \ \ \ ADC\_ChannelConfTypeDef\ sConfigJoyY;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00086}00086\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00087}00087\ \ \ \ \ \textcolor{comment}{/*\ Enable\ ADC\ CLOCK\ */}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00088}00088\ \ \ \ \ \textcolor{comment}{//\_\_HAL\_RCC\_ADC1\_CLK\_ENABLE();}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00089}00089\ \ \ \ \ \textcolor{comment}{//\_\_HAL\_RCC\_ADC2\_CLK\_ENABLE();}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00090}00090\ \ \ \ \ \_\_HAL\_RCC\_ADC3\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00091}00091\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00092}00092\ \ \ \ \ \textcolor{comment}{/*\ Configure\ the\ global\ features\ of\ the\ ADC\ (Clock,\ Resolution,\ Data}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00093}00093\ \textcolor{comment}{\ \ \ \ Alignment\ and\ number\ of\ conversion)\ */}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00094}00094\ \ \ \ \ hadcJoyY.Instance\ =\ ADC3;\ \textcolor{comment}{//\ \#\ Select\ the\ ADC\ (ADC1,\ ADC2,\ ADC3)}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00095}00095\ \ \ \ \ hadcJoyY.Init.ClockPrescaler\ =\ ADC\_CLOCK\_SYNC\_PCLK\_DIV2;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00096}00096\ \ \ \ \ hadcJoyY.Init.Resolution\ =\ ADC\_RESOLUTION\_10B;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00097}00097\ \ \ \ \ hadcJoyY.Init.DataAlign\ =\ ADC\_DATAALIGN\_RIGHT;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00098}00098\ \ \ \ \ hadcJoyY.Init.NbrOfConversion\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00099}00099\ \ \ \ \ hadcJoyY.Init.ScanConvMode\ =\ ENABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00100}00100\ \ \ \ \ hadcJoyY.Init.ContinuousConvMode\ =\ ENABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00101}00101\ \ \ \ \ hadcJoyY.Init.DiscontinuousConvMode\ =\ DISABLE;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00102}00102\ \ \ \ \ HAL\_ADC\_Init(\&hadcJoyY);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00103}00103\ \ \ \ \ \textcolor{comment}{//\ configure\ channal}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00104}00104\ \ \ \ \ sConfigJoyY.Rank\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00105}00105\ \ \ \ \ sConfigJoyY.Channel\ =}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ ADC\_CHANNEL\_7;\ \textcolor{comment}{//\ \#\ Select\ the\ ADC\ Channel\ (ADC\_CHANNEL\_X)}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00107}00107\ \ \ \ \ sConfigJoyY.SamplingTime\ =\ ADC\_SAMPLETIME\_28CYCLES;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00108}00108\ \ \ \ \ HAL\_ADC\_ConfigChannel(\&hadcJoyY,\ \&sConfigJoyY);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00109}00109\ \ \ \ \ HAL\_ADC\_Start(\&hadcJoyY);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00110}00110\ \ \ \ \ HAL\_ADC\_PollForConversion(\&hadcJoyY,\ HAL\_MAX\_DELAY);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00111}00111\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00112}00112\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00113}00113\ GPIO\_InitTypeDef\ GPIO\_InitStructJoyY;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00114}00114\ \textcolor{keywordtype}{void}\ MX\_GPIO\_Init\_JoyY(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00115}00115\ \ \ \ \ \_\_HAL\_RCC\_GPIOF\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00116}00116\ \ \ \ \ GPIO\_InitStructJoyY.Mode\ =}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00117}00117\ \ \ \ \ \ \ \ \ GPIO\_MODE\_ANALOG;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ configure\ to\ analog\ input\ mode}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00118}00118\ \ \ \ \ GPIO\_InitStructJoyY.Pin\ =\ GPIO\_PIN\_9;\ \textcolor{comment}{//\ \#select\ GPIO\ GPIO\_PIN\_X}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00119}00119\ \ \ \ \ GPIO\_InitStructJoyY.Pull\ =\ GPIO\_NOPULL;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00120}00120\ \ \ \ \ HAL\_GPIO\_Init(GPIOF,\ \&GPIO\_InitStructJoyY);\ \textcolor{comment}{//\ \#select\ GPIO\ Group}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00121}00121\ \}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00122}00122\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00123}00123\ \textcolor{keywordtype}{void}\ SensorInit(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00124}00124\ \ \ \ \ \textcolor{comment}{//\ general}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00125}00125\ \ \ \ \ GPIO\_InitTypeDef\ gpio;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00126}00126\ \ \ \ \ LED\_Initialize();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00127}00127\ \ \ \ \ \_\_HAL\_RCC\_GPIOC\_CLK\_ENABLE();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00128}00128\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00129}00129\ \ \ \ \ \textcolor{comment}{//\ analog}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00130}00130\ \ \ \ \ MX\_ADC\_Init\_Photo();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00131}00131\ \ \ \ \ MX\_ADC\_Init\_JoyY();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00132}00132\ \ \ \ \ MX\_GPIO\_Init\_Photo();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00133}00133\ \ \ \ \ MX\_GPIO\_Init\_JoyY();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00134}00134\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00135}00135\ \ \ \ \ HAL\_Init();}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00136}00136\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00137}00137\ \ \ \ \ \textcolor{comment}{//\ digital}}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00138}00138\ \ \ \ \ gpio.Mode\ =\ GPIO\_MODE\_INPUT;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00139}00139\ \ \ \ \ gpio.Pull\ =\ GPIO\_PULLDOWN;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00140}00140\ \ \ \ \ gpio.Speed\ =\ GPIO\_SPEED\_HIGH;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00141}00141\ }
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00142}00142\ \ \ \ \ gpio.Pin\ =\ GPIO\_PIN\_6;}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00143}00143\ \ \ \ \ HAL\_GPIO\_Init(GPIOC,\ \&gpio);}
+\DoxyCodeLine{\Hypertarget{sensor_8c_source_l00144}00144\ \}}
+
+\end{DoxyCode}

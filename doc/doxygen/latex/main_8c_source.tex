@@ -1,0 +1,51 @@
+\doxysection{main.\+c}
+\hypertarget{main_8c_source}{}\label{main_8c_source}\index{Boopit/src/main.c@{Boopit/src/main.c}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}RTE\_Components.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ CMSIS\_device\_header}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ "{}rtx\_os.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00004}00004\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdbool.h>}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00006}00006\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{display_8h}{display.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}endScreen.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ "{}game.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ "{}mainMenu.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}sensor.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00012}00012\ \textcolor{preprocessor}{\#include\ "{}userData.h"{}}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00013}00013\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00014}00014\ \textcolor{comment}{//\ HAL\_GetTick\ replacement}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00015}00015\ \textcolor{comment}{//\ from\ https://developer.arm.com/documentation/ka002485/latest/}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00016}00016\ \textcolor{keyword}{extern}\ osRtxInfo\_t\ osRtxInfo;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00017}00017\ uint32\_t\ HAL\_GetTick(\textcolor{keywordtype}{void})\ \{\ \textcolor{keywordflow}{return}\ ((uint32\_t)osRtxInfo.kernel.tick);\ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00019}00019\ \textcolor{keywordtype}{int}\ main(\textcolor{keywordtype}{void})\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{bool}\ running\ =\ \textcolor{keyword}{true};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00022}00022\ \ \ \ \ Difficulty\ difficulty\ =\ MEDIUM;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00023}00023\ \ \ \ \ \textcolor{keywordtype}{int}\ lives\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00024}00024\ \ \ \ \ \textcolor{keywordtype}{int}\ baseTime\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00025}00025\ \ \ \ \ \textcolor{keywordtype}{int}\ score\ =\ 0;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00026}00026\ \ \ \ \ NextScene\ nextScene\ =\ MAIN\_MENU;}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00027}00027\ \ \ \ \ \mbox{\hyperlink{struct_user_data}{UserData}}\ userData\ =\ \{difficulty,\ lives,\ baseTime,\ score,\ nextScene\};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00029}00029\ \ \ \ \ init\_display();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00030}00030\ \ \ \ \ SensorInit();}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00032}00032\ \ \ \ \ \textcolor{keywordflow}{while}\ (running)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00033}00033\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (userData.nextScene)\ \{}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ MAIN\_MENU:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \ \ \ \ main\_menu(\&userData);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00036}00036\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00037}00037\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ GAME:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00038}00038\ \ \ \ \ \ \ \ \ \ \ \ \ play\_game(\&userData);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00039}00039\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ END:}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \ \ \ \ end\_screen(\&userData);}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00042}00042\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00043}00043\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00044}00044\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{main_8c_source_l00045}00045\ \}}
+
+\end{DoxyCode}
