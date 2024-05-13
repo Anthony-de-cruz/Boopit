@@ -29,14 +29,6 @@ int main(void) {
     init_display();
     SensorInit();
 
-    //    while (running) {
-    //        main_menu(&userData);
-    //        while (userData.lives >= 0) {
-    //            play_game(&userData);
-    //        }
-    //        end_screen(&userData);
-    //    }
-
     while (running) {
         switch (userData.nextScene) {
         case MAIN_MENU:

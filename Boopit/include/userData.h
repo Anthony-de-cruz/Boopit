@@ -16,4 +16,6 @@ typedef struct UserData {
         NextScene nextScene;
 } UserData;
 
+void handle_difficulty(UserData *userData);
+
 #endif /* __USERDATA */

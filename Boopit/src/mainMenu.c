@@ -1,6 +1,5 @@
 #include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 
 #include "stm32f7xx_hal.h"
@@ -29,27 +28,6 @@ static Button difficulty_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                             &GLCD_Font_16x24,
                             150,
                             0};
-
-static void handle_difficulty(UserData *userData) {
-
-    switch (userData->difficulty) {
-    case EASY:
-        userData->lives = 5;
-        userData->baseTime = 3000;
-        break;
-    case MEDIUM:
-        userData->lives = 3;
-        userData->baseTime = 2000;
-        break;
-    case HARD:
-        userData->lives = 2;
-        userData->baseTime = 1500;
-        break;
-    default:
-        exit(EXIT_FAILURE);
-        break;
-    }
-}
 
 static void handle_input(TOUCH_STATE *tsc_state, UserData *userData, bool *inMenu) {
 

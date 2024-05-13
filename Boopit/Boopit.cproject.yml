@@ -15,6 +15,7 @@ project:
         - file: include/userData.h
         - file: include/mainMenu.h
         - file: include/sensor.h
+        - file: src\userData.c
 
   packs:
     - pack: Keil::STM32F7xx_DFP

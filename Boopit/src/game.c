@@ -48,14 +48,13 @@ void play_game(UserData *userData) {
     // Game settings
     srand(HAL_GetTick());
     task = (Task)rand() % 5;
-    task = 4;
     sprintf(debug_buffers[3], "Random num: %i", task);
     // task = 3;
     timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
 
-    int input_delay = 500;
+    int input_delay = 50;
 
     while (timeCurrent < endTime) {
 
