@@ -5,6 +5,8 @@
 #include "Board_Touch.h"
 #define __DISPLAY
 
+/** @file */ 
+
 // Constants
 
 #define SCREEN_WIDTH 480
@@ -18,6 +20,10 @@ void init_display(void);
 
 // Debug
 
+/*! \def DEBUG_MODE
+    \brief This macro sets the debug mode
+*/
+
 #define DEBUG_MODE true
 
 #define DEBUG_BUFFER_SIZE 256
@@ -25,6 +31,11 @@ void init_display(void);
 
 extern char debug_buffers[DEBUG_BUFFER_COUNT][DEBUG_BUFFER_SIZE];
 
+/**
+  * @brief  Print out the contents of all the debug buffers onto the screen
+  * @param  None
+  * @retval None
+  */
 void debug_print(void);
 void debug_clear(unsigned int buffer);
 void debug_clear_all(void);

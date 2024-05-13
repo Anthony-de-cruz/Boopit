@@ -18,10 +18,13 @@ extern ADC_HandleTypeDef hadcJoyY;
 
 static int last_pressed;
 
-static void draw_game_screen(int timeRemaining, int task) {
+static void draw_game_screen(int timeRemaining, int task, int score,
+                             int lives) {
 
     char timeRemainingBuffer[256];
     char taskBuffer[256];
+    char scoreBuffer[256];
+    char livesBuffer[256];
 
     GLCD_SetFont(&GLCD_Font_16x24);
     GLCD_DrawString(150, 50, "BOOPIT!");
@@ -32,6 +35,12 @@ static void draw_game_screen(int timeRemaining, int task) {
 
     sprintf(taskBuffer, "Task: %s   ", TASK_NAMES[task]);
     GLCD_DrawString(100, 200, taskBuffer);
+
+    sprintf(scoreBuffer, "Score: %i   ", score);
+    GLCD_DrawString(100, 150, scoreBuffer);
+
+    sprintf(livesBuffer, "Lives: %i   ", lives);
+    GLCD_DrawString(200, 150, livesBuffer);
 
     debug_print();
 }
@@ -48,13 +57,11 @@ void play_game(UserData *userData) {
     // Game settings
     srand(HAL_GetTick());
     task = (Task)rand() % 5;
-    sprintf(debug_buffers[3], "Random num: %i", task);
-    // task = 3;
     timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
 
-    int input_delay = 50;
+    int input_delay = 100;
 
     while (timeCurrent < endTime) {
 
@@ -98,9 +105,11 @@ void play_game(UserData *userData) {
         sprintf(debug_buffers[1], "Touch: %i @ X:%i,Y:%i   ", tsc_state.pressed,
                 tsc_state.x, tsc_state.y);
         sprintf(debug_buffers[2], "Lives: %i", userData->lives);
-        sprintf(debug_buffers[4], "Score: %i", userData->score);
+        sprintf(debug_buffers[3], "Task: %i", task);
+        sprintf(debug_buffers[4], "Score: %i ", userData->score);
 
-        draw_game_screen(endTime - timeCurrent, task);
+        draw_game_screen(endTime - timeCurrent, task, userData->score,
+                         userData->lives);
     }
 
     userData->lives--;
