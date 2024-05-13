@@ -10,6 +10,8 @@
 #include "game.h"
 #include "sensor.h"
 
+/** @file */
+
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
 
@@ -19,6 +21,15 @@ extern ADC_HandleTypeDef hadcJoyY;
 static int last_pressed;
 static int previous_task = 0;
 
+
+/**
+ * @brief Draw the game scene to the display.
+ * 
+ * @param timeRemaining 
+ * @param task 
+ * @param score 
+ * @param lives 
+ */
 static void draw_game_screen(int timeRemaining, int task, int score,
                              int lives) {
 
@@ -55,7 +66,7 @@ void play_game(UserData *userData) {
 
     bool taskCompleted = false;
 
-    // Game settings
+    // Make sure it doesn't do the same task twice
     while (previous_task == task) {
         srand(HAL_GetTick());
         task = (Task)rand() % 5;
@@ -63,39 +74,31 @@ void play_game(UserData *userData) {
 
     previous_task = task;
 
-    // task = 3;
     timeLimit = userData->baseTime;
     startTime = HAL_GetTick();
     endTime = startTime + timeLimit;
 
-    int input_delay = 0;
-
     while (timeCurrent < endTime) {
 
         timeCurrent = HAL_GetTick();
-
         Touch_GetState(&tsc_state);
 
-        if (last_pressed + input_delay < timeCurrent) {
-            last_pressed = timeCurrent;
-
-            switch (task) {
-            case TOUCH:
-                taskCompleted = touch_sensor_pressed();
-                break;
-            case PHOTO:
-                taskCompleted = photo_sensor_pressed();
-                break;
-            case BUTTON:
-                taskCompleted = button_sensor_pressed();
-                break;
-            case JOYSTICK:
-                taskCompleted = joystick_sensor_pressed();
-                break;
-            case DISPLAY:
-                taskCompleted = tsc_state.pressed;
-                break;
-            }
+        switch (task) {
+        case TOUCH:
+            taskCompleted = touch_sensor_pressed();
+            break;
+        case PHOTO:
+            taskCompleted = photo_sensor_pressed();
+            break;
+        case BUTTON:
+            taskCompleted = button_sensor_pressed();
+            break;
+        case JOYSTICK:
+            taskCompleted = joystick_sensor_pressed();
+            break;
+        case DISPLAY:
+            taskCompleted = tsc_state.pressed;
+            break;
         }
 
         // check completed
@@ -125,4 +128,3 @@ void play_game(UserData *userData) {
         userData->nextScene = END;
     }
 }
- 

@@ -6,10 +6,10 @@
 
 #include "display.h"
 
+/** @file */
+
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
-
-/** @file */
 
 /**
  * System Clock Configuration

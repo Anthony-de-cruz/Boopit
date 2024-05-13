@@ -8,10 +8,10 @@
 #include "mainMenu.h"
 #include "userData.h"
 
+/** @file */
+
 extern GLCD_FONT GLCD_Font_6x8;
 extern GLCD_FONT GLCD_Font_16x24;
-
-/** @file */
 
 static Button play_button = {(int)(SCREEN_WIDTH * 0.15) - (100 / 2),
                              (int)(SCREEN_HEIGHT * 0.50) - (50 / 2),
